@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading System Rules - Professional Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #ffffff;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid #2563eb;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header .version {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 500;
+            background: #f3f4f6;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Section Headers */
+        .section {
+            margin-bottom: 1rem;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header::after {
+            content: '▼';
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section-header.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section-content.hidden {
+            max-height: 0;
+            margin-top: 0;
+            opacity: 0;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #374151;
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .entry-type {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .conditions {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .conditions li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+
+        /* Risk Management Grid */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .risk-item {
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .risk-label {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .risk-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #10b981;
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            counter-reset: step-counter;
+        }
+
+        .workflow-step {
+            counter-increment: step-counter;
+            background: #f8fafc;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .workflow-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: #3b82f6;
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Glossary */
+        .glossary-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .glossary-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .glossary-term {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .glossary-definition {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        /* Highlights */
+        .highlight-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #92400e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            body { font-size: 12px; }
+            .container { padding: 0.5in; }
+            .section { break-inside: avoid; page-break-inside: avoid; }
+            .table-container { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Trading System Rules</h1>
+            <div class="version">Draft v1.37</div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
+            
+            <div class="section-content">
+                <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Entry Type</th>
+                            <th>Conditions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="entry-type">Long Entry 1</div>
+                                <small style="color: #6b7280;">(Type 1)</small>
+                            </td>
+                            <td>
+                                <div class="conditions">
+                                    <ul>
+                                        <li>EMA 3H > EMA 1D</li>
+                                        <li>1H Demand Zone</li>
+                                        <li>15m Liquidity Grab from low</li>
+                                        <li>Price < EMA 3H</li>
+                                        <li>15m Internal Demand Zone</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="entry-type">Short Entry 1</div>
+                                <small style="color: #6b7280;">(Type 1)</small>
+                            </td>
+                            <td>
+                                <div class="conditions">
+                                    <ul>
+                                        <li>EMA 3H < EMA 1D</li>
+                                        <li>1H Supply Zone</li>
+                                        <li>15m Liquidity Grab from high</li>
+                                        <li>Price > EMA 3H</li>
+                                        <li>15m Internal Supply Zone</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="entry-type">Long Entry 2</div>
+                                <small style="color: #6b7280;">(Type 2)</small>
+                            </td>
+                            <td>
+                                <div class="conditions">
+                                    <ul>
+                                        <li>EMA 3H < EMA 1D</li>
+                                        <li>M Zone hit</li>
+                                        <li>1H Demand Zone or CHoCH Zone</li>
+                                        <li>15m Liquidity Grab from low</li>
+                                        <li>15m Demand Zone</li>
+                                        <li>Price < EMA 3H</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="entry-type">Short Entry 2</div>
+                                <small style="color: #6b7280;">(Type 2)</small>
+                            </td>
+                            <td>
+                                <div class="conditions">
+                                    <ul>
+                                        <li>EMA 3H > EMA 1D</li>
+                                        <li>M Zone hit</li>
+                                        <li>1H Supply Zone or CHoCH Zone</li>
+                                        <li>15m Liquidity Grab from high</li>
+                                        <li>15m Supply Zone</li>
+                                        <li>Price > EMA 3H</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Entry Type Confirmation Methods:</h4>
+                <ul>
+                    <li>Red 15m Candle</li>
+                    <li>2m CHoCH Pattern</li>
+                    <li>2m First Pullback after CHoCH</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
+            
+            <div class="section-content">
+                <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Category</th>
+                            <th>Rules</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Zone Validity & Usage</strong></td>
+                            <td>
+                                <ul>
+                                    <li>M Zone valid until 2 taps or broken</li>
+                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
+                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
+                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
+                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liquidity Grab Rules</strong></td>
+                            <td>
+                                <ul>
+                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
+                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
+                                    <li>15m Liquidity Grab required for all entries</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stop Loss & Exit Rules</strong></td>
+                            <td>
+                                <ul>
+                                    <li><strong>Initial Stop Loss:</strong>
+                                        <ul>
+                                            <li>Shorts → 15m highs</li>
+                                            <li>Longs → 15m lows</li>
+                                        </ul>
+                                    </li>
+                                    <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
+                                    <li>If next candle after a long is lower → exit at breakeven (zero)</li>
+                                    <li>If next candle after a short is higher → exit at breakeven (zero)</li>
+                                    <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
+                                    <li>If 1H Zone target is very close to entry → reconsider the trade</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Market Structure Rules</strong></td>
+                            <td>
+                                <ul>
+                                    <li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>News Filters</strong></td>
+                            <td>
+                                <ul>
+                                    <li><strong>Avoid trading during:</strong>
+                                        <ul>
+                                            <li>ECB events</li>
+                                            <li>Fed events</li>
+                                            <li>US interest rate events</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
+            
+            <div class="section-content">
+                <div class="risk-grid">
+                <div class="risk-item">
+                    <div class="risk-label">Risk per trade</div>
+                    <div class="risk-value">1% of account balance</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-label">Max daily loss</div>
+                    <div class="risk-value">3%</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-label">Max account drawdown</div>
+                    <div class="risk-value">10%</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-label">Max open trades</div>
+                    <div class="risk-value">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">4. Usage Guidelines (Workflow)</div>
+            
+            <div class="section-content">
+                <div class="workflow">
+                <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
+                <div class="workflow-step">Check market structure</div>
+                <div class="workflow-step">Mark 1H Supply & Demand Zones</div>
+                <div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
+                <div class="workflow-step">Wait for 1H Zone to be hit</div>
+                <div class="workflow-step">Wait for 15m Liquidity Grab</div>
+                <div class="workflow-step">Enter trade based on entry type (1 or 2) with confirmation</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
+            
+            <div class="section-content">
+                <div class="highlight-box">
+                <ul>
+                    <li>System may miss trades — this is expected</li>
+                    <li>Some days will produce no valid trades — remain patient</li>
+                    <li>Drawdowns are normal; follow risk rules strictly</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
+            
+            <div class="section-content">
+                <div class="glossary-grid">
+                <div class="glossary-item">
+                    <div class="glossary-term">EMA (Exponential Moving Average)</div>
+                    <div class="glossary-definition">Weighted moving average giving more importance to recent price data.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">M Zones</div>
+                    <div class="glossary-definition">Higher timeframe (1D, 12H, 3D) supply or demand zones.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">1H Zones</div>
+                    <div class="glossary-definition">Key supply or demand levels formed on the 1-hour chart.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">15m Zones</div>
+                    <div class="glossary-definition">Internal supply or demand levels on the 15-minute chart.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">LQG (Liquidity Grab)</div>
+                    <div class="glossary-definition">A price move that sweeps stop losses/liquidity before reversing.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">CHoCH (Change of Character)</div>
+                    <div class="glossary-definition">A shift in market structure that signals a potential reversal.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Supply Zone</div>
+                    <div class="glossary-definition">Area where selling pressure is expected to emerge.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Demand Zone</div>
+                    <div class="glossary-definition">Area where buying pressure is expected to emerge.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Drawdown</div>
+                    <div class="glossary-definition">Reduction in account equity from peak to trough.</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">SL (Stop Loss)</div>
+                    <div class="glossary-definition">Predefined level where a trade is closed to prevent further loss.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const isHidden = content.classList.contains('hidden');
+            
+            if (isHidden) {
+                content.classList.remove('hidden');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('hidden');
+                header.classList.add('collapsed');
+            }
+        }
+
+        // Initialize all sections as expanded by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // All sections start expanded, no action needed
+        });
+    </script>
+</body>
+</html>
