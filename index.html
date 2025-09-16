@@ -139,61 +139,58 @@
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
         }
 
-        /* Layout Structure - Fixed for proper desktop layout */
+        /* Layout Structure - Using CSS Grid for better control */
         .page-wrapper {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .content-layout {
-            display: flex;
-            flex-direction: column;
+        .content-grid {
+            display: grid;
             gap: 1.5rem;
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                "news"
+                "prices" 
+                "main";
         }
 
-        /* Mobile: Stack all vertically */
         .news-sidebar {
-            order: 1;
+            grid-area: news;
         }
 
         .prices-sidebar {
-            order: 2;
+            grid-area: prices;
         }
 
         .main-sections {
-            order: 3;
+            grid-area: main;
         }
 
-        /* Desktop Layout - Force three-column layout */
+        /* Desktop Layout - CSS Grid three-column layout */
         @media (min-width: 1024px) {
             .container {
                 max-width: 1400px !important;
             }
 
-            .content-layout {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: flex-start !important;
+            .content-grid {
+                grid-template-columns: 280px 1fr 280px !important;
+                grid-template-areas: "news main prices" !important;
                 gap: 2rem !important;
+                align-items: start !important;
             }
 
             .news-sidebar {
-                width: 280px !important;
-                flex-shrink: 0 !important;
-                order: 1 !important;
+                grid-area: news !important;
             }
 
             .main-sections {
-                flex: 1 !important;
-                min-width: 0 !important;
-                order: 2 !important;
+                grid-area: main !important;
             }
 
             .prices-sidebar {
-                width: 280px !important;
-                flex-shrink: 0 !important;
-                order: 3 !important;
+                grid-area: prices !important;
             }
         }
 
@@ -510,29 +507,13 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
-        /* Force layout debugging - remove after testing */
         @media (min-width: 1024px) {
-            .content-layout {
-                border: 2px solid red; /* Debug border - remove later */
-            }
-            
-            .news-sidebar {
-                border: 2px solid blue; /* Debug border - remove later */
-            }
-            
-            .main-sections {
-                border: 2px solid green; /* Debug border - remove later */
-            }
-            
-            .prices-sidebar {
-                border: 2px solid orange; /* Debug border - remove later */
-            }
-            
             .sidebar-container {
                 max-height: 500px;
                 overflow-y: auto;
                 position: sticky;
                 top: 2rem;
+                margin-bottom: 0;
             }
         }
 
@@ -844,7 +825,7 @@
                 <div class="version">Draft v1.37</div>
             </div>
 
-            <div class="content-layout">
+            <div class="content-grid">
                 <!-- News Sidebar (Left on desktop, top on mobile) -->
                 <div class="news-sidebar">
                     <div class="news-container sidebar-container">
