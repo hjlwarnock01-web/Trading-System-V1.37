@@ -1214,91 +1214,109 @@
             const pricesContainer = document.getElementById('prices-content');
             if (!pricesContainer) return;
             
-            const API_KEY = 'd34k6n1r01qpup1fo75gd34k6n1r01qpup1fo760';
-            const pairs = [
-                { symbol: 'EURUSD', display: 'EURUSD' },
-                { symbol: 'GBPUSD', display: 'GBPUSD' },
-                { symbol: 'AUDUSD', display: 'AUDUSD' },
-                { symbol: 'USDCAD', display: 'USDCAD' },
-                { symbol: 'USDJPY', display: 'USDJPY' },
-                { symbol: 'BINANCE:BTCUSDT', display: 'BTCUSD' }
-            ];
+            const FINNHUB_API_KEY = 'd34k6n1r01qpup1fo75gd34k6n1r01qpup1fo760';
+            const EXCHANGE_API_KEY = '56cde61bbe743334989a99ab';
             
             try {
                 pricesContainer.innerHTML = '<div class="loading-prices">Loading live forex prices...</div>';
                 
-                const pricePromises = pairs.map(async (pair) => {
-                    try {
-                        const response = await fetch(
-                            `https://finnhub.io/api/v1/quote?symbol=${pair.symbol}&token=${API_KEY}`
-                        );
-                        
-                        if (!response.ok) {
-                            console.log(`HTTP error for ${pair.display}: ${response.status}`);
-                            throw new Error(`HTTP error! status: ${response.status}`);
+                // Get forex rates from ExchangeRate-API (USD base)
+                const forexResponse = await fetch(`https://v6.exchangerate-api.com/v6/${EXCHANGE_API_KEY}/latest/USD`);
+                
+                if (!forexResponse.ok) {
+                    throw new Error(`ExchangeRate API error: ${forexResponse.status}`);
+                }
+                
+                const forexData = await forexResponse.json();
+                console.log('ExchangeRate API response:', forexData);
+                
+                if (forexData.result !== 'success') {
+                    throw new Error('ExchangeRate API returned error');
+                }
+                
+                // Get BTC price from Finnhub
+                let btcData = null;
+                try {
+                    const btcResponse = await fetch(`https://finnhub.io/api/v1/quote?symbol=BINANCE:BTCUSDT&token=${FINNHUB_API_KEY}`);
+                    if (btcResponse.ok) {
+                        const btcResult = await btcResponse.json();
+                        if (btcResult.c && btcResult.c > 0) {
+                            btcData = btcResult;
+                            console.log('BTC data from Finnhub:', btcData);
                         }
-                        
-                        const data = await response.json();
-                        console.log(`Data for ${pair.display}:`, data);
-                        
-                        if (data.error) {
-                            console.log(`API error for ${pair.display}:`, data.error);
-                            throw new Error(data.error);
-                        }
-                        
-                        const currentPrice = data.c; // Current price
-                        const change = data.d; // Change
-                        const changePercent = data.dp; // Change percent
-                        
-                        if (currentPrice === null || currentPrice === undefined || currentPrice === 0) {
-                            console.log(`No price data for ${pair.display}, trying alternative symbol...`);
-                            
-                            // Try alternative symbol format
-                            const altSymbol = pair.display; // Just use EURUSD instead of FOREX:EURUSD
-                            const altResponse = await fetch(
-                                `https://finnhub.io/api/v1/quote?symbol=${altSymbol}&token=${API_KEY}`
-                            );
-                            
-                            if (altResponse.ok) {
-                                const altData = await altResponse.json();
-                                console.log(`Alternative data for ${pair.display}:`, altData);
-                                
-                                if (altData.c && altData.c !== 0) {
-                                    return {
-                                        display: pair.display,
-                                        price: altData.c,
-                                        change: altData.d || 0,
-                                        changePercent: altData.dp || 0
-                                    };
-                                }
-                            }
-                            
-                            throw new Error('No price data available');
-                        }
-                        
-                        return {
-                            display: pair.display,
-                            price: currentPrice,
-                            change: change || 0,
-                            changePercent: changePercent || 0
-                        };
-                    } catch (error) {
-                        console.log(`Error fetching ${pair.display}:`, error);
-                        return null; // Return null for failed requests
                     }
-                });
+                } catch (error) {
+                    console.log('BTC fetch failed:', error);
+                }
                 
-                const results = await Promise.all(pricePromises);
-                const validResults = results.filter(result => result !== null);
+                // Calculate forex pairs from USD base rates
+                const rates = forexData.conversion_rates;
+                const results = [];
                 
-                if (validResults.length === 0) {
-                    pricesContainer.innerHTML = '<div class="loading-prices">Unable to load forex prices.<br>Please check your connection.</div>';
+                // For forex pairs, we need to calculate cross rates
+                if (rates.EUR && rates.USD) {
+                    results.push({
+                        display: 'EURUSD',
+                        price: 1 / rates.EUR, // EUR to USD rate
+                        change: 0, // ExchangeRate-API doesn't provide change data
+                        changePercent: 0
+                    });
+                }
+                
+                if (rates.GBP && rates.USD) {
+                    results.push({
+                        display: 'GBPUSD',
+                        price: 1 / rates.GBP,
+                        change: 0,
+                        changePercent: 0
+                    });
+                }
+                
+                if (rates.AUD && rates.USD) {
+                    results.push({
+                        display: 'AUDUSD',
+                        price: 1 / rates.AUD,
+                        change: 0,
+                        changePercent: 0
+                    });
+                }
+                
+                if (rates.CAD && rates.USD) {
+                    results.push({
+                        display: 'USDCAD',
+                        price: rates.CAD, // USD to CAD rate
+                        change: 0,
+                        changePercent: 0
+                    });
+                }
+                
+                if (rates.JPY && rates.USD) {
+                    results.push({
+                        display: 'USDJPY',
+                        price: rates.JPY, // USD to JPY rate
+                        change: 0,
+                        changePercent: 0
+                    });
+                }
+                
+                // Add BTC if available
+                if (btcData) {
+                    results.push({
+                        display: 'BTCUSD',
+                        price: btcData.c,
+                        change: btcData.d || 0,
+                        changePercent: btcData.dp || 0
+                    });
+                }
+                
+                if (results.length === 0) {
+                    pricesContainer.innerHTML = '<div class="loading-prices">No price data available</div>';
                     return;
                 }
                 
                 let pricesHtml = '';
                 
-                validResults.forEach(result => {
+                results.forEach(result => {
                     // Format price based on pair
                     let formattedPrice, formattedChange;
                     if (result.display === 'USDJPY') {
@@ -1315,14 +1333,19 @@
                         formattedChange = result.change.toFixed(4);
                     }
                     
+                    // Only show change for BTC (since forex API doesn't provide change data)
+                    const changeDisplay = result.display === 'BTCUSD' ? 
+                        `<div class="price-change ${result.change >= 0 ? 'price-up' : 'price-down'}">
+                            ${result.change >= 0 ? '+' : ''}${formattedChange} (${result.changePercent.toFixed(2)}%)
+                         </div>` : 
+                        `<div class="price-change" style="color: #6b7280; font-size: 0.7rem;">Live Rate</div>`;
+                    
                     pricesHtml += `
                         <div class="price-item">
                             <div class="pair-name">${result.display}</div>
                             <div class="price-details">
                                 <div class="price-value">${formattedPrice}</div>
-                                <div class="price-change ${result.change >= 0 ? 'price-up' : 'price-down'}">
-                                    ${result.change >= 0 ? '+' : ''}${formattedChange} (${result.changePercent.toFixed(2)}%)
-                                </div>
+                                ${changeDisplay}
                             </div>
                         </div>
                     `;
@@ -1341,8 +1364,8 @@
             loadNewsEvents();
             loadForexPrices();
             
-            setInterval(loadNewsEvents, 4 * 60 * 60 * 1000);
-            setInterval(loadForexPrices, 30000);
+            setInterval(loadNewsEvents, 4 * 60 * 60 * 1000); // Every 4 hours
+            setInterval(loadForexPrices, 60 * 60 * 1000); // Every 1 hour
         });
     </script>
 </body>
