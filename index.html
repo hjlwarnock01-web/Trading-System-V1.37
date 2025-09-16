@@ -146,7 +146,7 @@
             gap: 1.5rem;
         }
 
-           .content-layout {
+        .content-layout {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -191,6 +191,7 @@
                 order: 3;
             }
         }
+
         /* Responsive Design */
         @media (min-width: 768px) {
             .container {
@@ -657,6 +658,14 @@
             fill: #059669;
         }
 
+        /* Mobile: 2-column layout for prices, Desktop: single column */
+        #prices-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
         .price-item {
             display: flex;
             justify-content: space-between;
@@ -671,12 +680,16 @@
             border-bottom: none;
         }
 
-        /* Create 2-column layout for prices */
-        #prices-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
+        /* Desktop sidebar: stack prices vertically */
+        @media (min-width: 1024px) {
+            #prices-content {
+                display: block;
+            }
+
+            .price-item {
+                width: 100%;
+                margin-bottom: 0.75rem;
+            }
         }
 
         .pair-name {
@@ -760,16 +773,18 @@
                 <div class="version">Draft v1.37</div>
             </div>
 
-            <!-- Live Forex Prices -->
-            <div class="prices-container">
-                <div class="prices-header">
-                    <svg class="prices-icon" viewBox="0 0 24 24">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                    </svg>
-                    <h3>Live Prices</h3>
-                </div>
-                <div id="prices-content">
-                    <div class="loading-prices">Loading forex prices...</div>
+            <!-- Live Forex Prices (Mobile: top, Desktop: right sidebar) -->
+            <div class="prices-sidebar">
+                <div class="prices-container">
+                    <div class="prices-header">
+                        <svg class="prices-icon" viewBox="0 0 24 24">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                        <h3>Live Prices</h3>
+                    </div>
+                    <div id="prices-content">
+                        <div class="loading-prices">Loading forex prices...</div>
+                    </div>
                 </div>
             </div>
 
@@ -1102,44 +1117,60 @@
         // News feed functionality
         async function loadNewsEvents() {
             try {
-                const mockEvents = generateMockEvents();
-                displayNewsEvents(mockEvents);
+                const staticEvents = generateStaticEvents();
+                displayNewsEvents(staticEvents);
             } catch (error) {
                 document.getElementById('news-content').innerHTML = 
                     '<div class="no-events">Unable to load events at this time</div>';
             }
         }
 
-        function generateMockEvents() {
-            const today = new Date();
-            const events = [];
-            const eventTypes = [
-                'Federal Reserve Interest Rate Decision',
-                'ECB Monetary Policy Meeting',
-                'ECB Interest Rate Decision', 
-                'Fed Chair Powell Speech',
-                'ECB President Lagarde Speech',
-                'US Federal Reserve Meeting Minutes'
+        function generateStaticEvents() {
+            // Real upcoming economic events based on search results
+            const events = [
+                {
+                    date: '2025-09-17',
+                    title: 'Federal Reserve Interest Rate Decision',
+                    time: '14:00',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-09-17',
+                    title: 'Fed Chair Powell Press Conference',
+                    time: '14:30',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-10-15',
+                    title: 'US CPI (Consumer Price Index) - September',
+                    time: '08:30',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-10-24',
+                    title: 'ECB Monetary Policy Meeting',
+                    time: '12:15',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-10-24',
+                    title: 'ECB President Lagarde Press Conference',
+                    time: '12:45',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-10-28',
+                    title: 'Federal Reserve Interest Rate Decision',
+                    time: '14:00',
+                    impact: 'High'
+                },
+                {
+                    date: '2025-10-28',
+                    title: 'Fed Chair Powell Press Conference',
+                    time: '14:30',
+                    impact: 'High'
+                }
             ];
-
-            for (let i = 0; i < 7; i++) {
-                const eventDate = new Date(today);
-                eventDate.setDate(today.getDate() + i);
-                
-                eventTypes.forEach(eventType => {
-                    if (Math.random() < 0.3) {
-                        const impacts = ['High', 'Medium'];
-                        const randomImpact = impacts[Math.floor(Math.random() * impacts.length)];
-                        
-                        events.push({
-                            date: eventDate.toISOString().split('T')[0],
-                            title: eventType,
-                            time: `${8 + Math.floor(Math.random() * 10)}:${Math.random() < 0.5 ? '00' : '30'}`,
-                            impact: randomImpact
-                        });
-                    }
-                });
-            }
 
             return events.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
@@ -1182,59 +1213,100 @@
             const pricesContainer = document.getElementById('prices-content');
             if (!pricesContainer) return;
             
-            // Using mock data due to CORS restrictions with Finnhub API
+            const API_KEY = 'd34k6n1r01qpup1fo75gd34k6n1r01qpup1fo760';
             const pairs = [
-                { display: 'EURUSD', basePrice: 1.0850 },
-                { display: 'GBPUSD', basePrice: 1.2650 },
-                { display: 'AUDUSD', basePrice: 0.6420 },
-                { display: 'USDCAD', basePrice: 1.3580 },
-                { display: 'USDJPY', basePrice: 149.50 },
-                { display: 'BTCUSD', basePrice: 43250 }
+                { symbol: 'OANDA:EUR_USD', display: 'EURUSD' },
+                { symbol: 'OANDA:GBP_USD', display: 'GBPUSD' },
+                { symbol: 'OANDA:AUD_USD', display: 'AUDUSD' },
+                { symbol: 'OANDA:USD_CAD', display: 'USDCAD' },
+                { symbol: 'OANDA:USD_JPY', display: 'USDJPY' },
+                { symbol: 'BINANCE:BTCUSDT', display: 'BTCUSD' }
             ];
             
             try {
+                pricesContainer.innerHTML = '<div class="loading-prices">Loading live forex prices...</div>';
+                
+                const pricePromises = pairs.map(async (pair) => {
+                    try {
+                        const response = await fetch(
+                            `https://finnhub.io/api/v1/quote?symbol=${pair.symbol}&token=${API_KEY}`
+                        );
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (data.error) {
+                            throw new Error(data.error);
+                        }
+                        
+                        const currentPrice = data.c; // Current price
+                        const change = data.d; // Change
+                        const changePercent = data.dp; // Change percent
+                        
+                        if (currentPrice === null || currentPrice === undefined) {
+                            throw new Error('No price data available');
+                        }
+                        
+                        return {
+                            display: pair.display,
+                            price: currentPrice,
+                            change: change || 0,
+                            changePercent: changePercent || 0
+                        };
+                    } catch (error) {
+                        console.log(`Error fetching ${pair.display}:`, error);
+                        return null; // Return null for failed requests
+                    }
+                });
+                
+                const results = await Promise.all(pricePromises);
+                const validResults = results.filter(result => result !== null);
+                
+                if (validResults.length === 0) {
+                    pricesContainer.innerHTML = '<div class="loading-prices">Unable to load forex prices.<br>Please check your connection.</div>';
+                    return;
+                }
+                
                 let pricesHtml = '';
                 
-                for (const pair of pairs) {
-                    // Generate realistic price movements
-                    const variance = (Math.random() - 0.5) * 0.02; // ±1% variance
-                    const currentPrice = pair.basePrice * (1 + variance);
-                    const change = currentPrice - pair.basePrice;
-                    const changePercent = ((change / pair.basePrice) * 100).toFixed(2);
-                    
+                validResults.forEach(result => {
                     // Format price based on pair
                     let formattedPrice, formattedChange;
-                    if (pair.display === 'USDJPY') {
-                        formattedPrice = currentPrice.toFixed(2);
-                        formattedChange = change.toFixed(2);
-                    } else if (pair.display === 'BTCUSD') {
-                        formattedPrice = currentPrice.toLocaleString('en-US', {
+                    if (result.display === 'USDJPY') {
+                        formattedPrice = result.price.toFixed(2);
+                        formattedChange = result.change.toFixed(2);
+                    } else if (result.display === 'BTCUSD') {
+                        formattedPrice = result.price.toLocaleString('en-US', {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0
                         });
-                        formattedChange = change.toFixed(0);
+                        formattedChange = result.change.toFixed(0);
                     } else {
-                        formattedPrice = currentPrice.toFixed(4);
-                        formattedChange = change.toFixed(4);
+                        formattedPrice = result.price.toFixed(4);
+                        formattedChange = result.change.toFixed(4);
                     }
                     
                     pricesHtml += `
                         <div class="price-item">
-                            <div class="pair-name">${pair.display}</div>
+                            <div class="pair-name">${result.display}</div>
                             <div class="price-details">
                                 <div class="price-value">${formattedPrice}</div>
-                                <div class="price-change ${change >= 0 ? 'price-up' : 'price-down'}">
-                                    ${change >= 0 ? '+' : ''}${formattedChange} (${changePercent}%)
+                                <div class="price-change ${result.change >= 0 ? 'price-up' : 'price-down'}">
+                                    ${result.change >= 0 ? '+' : ''}${formattedChange} (${result.changePercent.toFixed(2)}%)
                                 </div>
                             </div>
                         </div>
                     `;
-                }
+                });
                 
                 pricesContainer.innerHTML = pricesHtml;
+                
             } catch (error) {
-                console.log('Error generating mock prices:', error);
-                pricesContainer.innerHTML = '<div class="loading-prices">Unable to load forex prices</div>';
+                console.log('Error loading forex prices:', error);
+                pricesContainer.innerHTML = '<div class="loading-prices">Unable to load forex prices.<br>API connection failed.</div>';
             }
         }
 
