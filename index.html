@@ -773,21 +773,6 @@
                 <div class="version">Draft v1.37</div>
             </div>
 
-            <!-- Live Forex Prices (Mobile: top, Desktop: right sidebar) -->
-            <div class="prices-sidebar">
-                <div class="prices-container">
-                    <div class="prices-header">
-                        <svg class="prices-icon" viewBox="0 0 24 24">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                        </svg>
-                        <h3>Live Prices</h3>
-                    </div>
-                    <div id="prices-content">
-                        <div class="loading-prices">Loading forex prices...</div>
-                    </div>
-                </div>
-            </div>
-
             <div class="content-layout">
                 <!-- News Sidebar (Left on desktop, bottom on mobile) -->
                 <div class="news-sidebar">
@@ -807,6 +792,21 @@
 
                 <!-- Main Trading System Content -->
                 <div class="main-sections">
+
+                <!-- Prices Sidebar (Right on desktop, inside content on mobile) -->
+                <div class="prices-sidebar">
+                    <div class="prices-container">
+                        <div class="prices-header">
+                            <svg class="prices-icon" viewBox="0 0 24 24">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                            <h3>Live Prices</h3>
+                        </div>
+                        <div id="prices-content">
+                            <div class="loading-prices">Loading forex prices...</div>
+                        </div>
+                    </div>
+                </div>
 
         <div class="section">
             <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
@@ -1215,11 +1215,11 @@
             
             const API_KEY = 'd34k6n1r01qpup1fo75gd34k6n1r01qpup1fo760';
             const pairs = [
-                { symbol: 'OANDA:EUR_USD', display: 'EURUSD' },
-                { symbol: 'OANDA:GBP_USD', display: 'GBPUSD' },
-                { symbol: 'OANDA:AUD_USD', display: 'AUDUSD' },
-                { symbol: 'OANDA:USD_CAD', display: 'USDCAD' },
-                { symbol: 'OANDA:USD_JPY', display: 'USDJPY' },
+                { symbol: 'FOREX:EURUSD', display: 'EURUSD' },
+                { symbol: 'FOREX:GBPUSD', display: 'GBPUSD' },
+                { symbol: 'FOREX:AUDUSD', display: 'AUDUSD' },
+                { symbol: 'FOREX:USDCAD', display: 'USDCAD' },
+                { symbol: 'FOREX:USDJPY', display: 'USDJPY' },
                 { symbol: 'BINANCE:BTCUSDT', display: 'BTCUSD' }
             ];
             
@@ -1233,12 +1233,15 @@
                         );
                         
                         if (!response.ok) {
+                            console.log(`HTTP error for ${pair.display}: ${response.status}`);
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
                         
                         const data = await response.json();
+                        console.log(`Data for ${pair.display}:`, data);
                         
                         if (data.error) {
+                            console.log(`API error for ${pair.display}:`, data.error);
                             throw new Error(data.error);
                         }
                         
@@ -1246,7 +1249,29 @@
                         const change = data.d; // Change
                         const changePercent = data.dp; // Change percent
                         
-                        if (currentPrice === null || currentPrice === undefined) {
+                        if (currentPrice === null || currentPrice === undefined || currentPrice === 0) {
+                            console.log(`No price data for ${pair.display}, trying alternative symbol...`);
+                            
+                            // Try alternative symbol format
+                            const altSymbol = pair.display; // Just use EURUSD instead of FOREX:EURUSD
+                            const altResponse = await fetch(
+                                `https://finnhub.io/api/v1/quote?symbol=${altSymbol}&token=${API_KEY}`
+                            );
+                            
+                            if (altResponse.ok) {
+                                const altData = await altResponse.json();
+                                console.log(`Alternative data for ${pair.display}:`, altData);
+                                
+                                if (altData.c && altData.c !== 0) {
+                                    return {
+                                        display: pair.display,
+                                        price: altData.c,
+                                        change: altData.d || 0,
+                                        changePercent: altData.dp || 0
+                                    };
+                                }
+                            }
+                            
                             throw new Error('No price data available');
                         }
                         
