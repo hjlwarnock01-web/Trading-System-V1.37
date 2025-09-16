@@ -139,7 +139,7 @@
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
         }
 
-        /* Layout Structure */
+        /* Layout Structure - Fixed for proper desktop layout */
         .page-wrapper {
             display: flex;
             flex-direction: column;
@@ -154,18 +154,24 @@
 
         .main-sections {
             flex: 1;
-            order: 1;
         }
 
         .news-sidebar {
-            order: 3;
+            order: 1;
         }
 
         .prices-sidebar {
             order: 2;
         }
 
-        /* Desktop Layout */
+        /* Mobile: Stack all vertically */
+        @media (max-width: 1023px) {
+            .main-sections {
+                order: 3;
+            }
+        }
+
+        /* Desktop Layout - Fixed */
         @media (min-width: 1024px) {
             .container {
                 max-width: 1400px;
@@ -177,18 +183,21 @@
                 gap: 2rem;
             }
 
-            .main-sections {
-                flex: 1;
-                order: 2;
-            }
-
             .news-sidebar {
-                width: 320px;
+                width: 300px;
+                flex-shrink: 0;
                 order: 1;
             }
 
+            .main-sections {
+                flex: 1;
+                min-width: 0; /* Important: allows flex item to shrink */
+                order: 2;
+            }
+
             .prices-sidebar {
-                width: 320px;
+                width: 300px;
+                flex-shrink: 0;
                 order: 3;
             }
         }
@@ -493,6 +502,45 @@
             .table-container { break-inside: avoid; }
             .theme-toggle { display: none; }
             .news-container { display: none; }
+            .prices-container { display: none; }
+        }
+
+        /* Sidebar Styles - Shared between news and prices */
+        .sidebar-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            /* Fixed height for desktop to prevent layout shifts */
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar-container {
+                max-height: 600px;
+                overflow-y: auto;
+                position: sticky;
+                top: 2rem;
+            }
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0;
+            margin-left: 0.5rem;
+        }
+
+        .sidebar-icon {
+            width: 20px;
+            height: 20px;
         }
 
         /* News Feed Styles */
@@ -526,7 +574,7 @@
         }
 
         .news-content {
-            max-height: 280px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
@@ -560,11 +608,11 @@
             background: #9ca3af;
         }
 
-        /* Desktop: Remove scrolling for news */
+        /* Desktop: Limit scrolling for news */
         @media (min-width: 1024px) {
             .news-content {
-                max-height: none;
-                overflow-y: visible;
+                max-height: 400px;
+                overflow-y: auto;
             }
         }
 
@@ -659,7 +707,7 @@
             fill: #059669;
         }
 
-        /* Mobile: 2-column layout for prices, Desktop: single column */
+        /* Prices layout - Mobile: 2-column, Desktop: single column */
         #prices-content {
             display: flex;
             flex-wrap: wrap;
@@ -690,6 +738,12 @@
             .price-item {
                 width: 100%;
                 margin-bottom: 0.75rem;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .price-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
             }
         }
 
@@ -751,6 +805,11 @@
         .dark .price-item {
             border-bottom: 1px solid #4b5563;
         }
+
+        .dark .sidebar-container {
+            background: #374151;
+            border: 1px solid #4b5563;
+        }
     </style>
 </head>
 <body>
@@ -775,11 +834,11 @@
             </div>
 
             <div class="content-layout">
-                <!-- News Sidebar (Left on desktop, bottom on mobile) -->
+                <!-- News Sidebar (Left on desktop, top on mobile) -->
                 <div class="news-sidebar">
-                    <div class="news-container">
-                        <div class="news-header">
-                            <svg class="news-icon" viewBox="0 0 24 24">
+                    <div class="news-container sidebar-container">
+                        <div class="news-header sidebar-header">
+                            <svg class="news-icon sidebar-icon" viewBox="0 0 24 24">
                                 <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
                                 <path d="M9 12l2 2 4-4"/>
                             </svg>
@@ -1072,11 +1131,11 @@
                     </div>
                 </div>
 
-                <!-- Prices Sidebar (Right on desktop, second on mobile) -->
+                <!-- Prices Sidebar (Right on desktop, middle on mobile) -->
                 <div class="prices-sidebar">
-                    <div class="prices-container">
-                        <div class="prices-header">
-                            <svg class="prices-icon" viewBox="0 0 24 24">
+                    <div class="prices-container sidebar-container">
+                        <div class="prices-header sidebar-header">
+                            <svg class="prices-icon sidebar-icon" viewBox="0 0 24 24">
                                 <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                             </svg>
                             <h3>Live Prices</h3>
