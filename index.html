@@ -169,6 +169,7 @@
         @media (min-width: 1024px) {
             .container {
                 max-width: 1400px;
+                padding: 3rem;
             }
 
             .content-layout {
@@ -179,16 +180,19 @@
 
             .main-sections {
                 flex: 1;
+                min-width: 0;
                 order: 2;
             }
 
             .news-sidebar {
-                width: 320px;
+                width: 300px;
+                flex-shrink: 0;
                 order: 1;
             }
 
             .prices-sidebar {
-                width: 320px;
+                width: 300px;
+                flex-shrink: 0;
                 order: 3;
             }
         }
@@ -199,12 +203,6 @@
                 padding: 2rem;
                 margin: 2rem auto;
                 border-radius: 12px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                padding: 3rem;
             }
         }
 
