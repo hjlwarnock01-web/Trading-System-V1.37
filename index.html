@@ -169,7 +169,6 @@
         @media (min-width: 1024px) {
             .container {
                 max-width: 1400px;
-                padding: 3rem;
             }
 
             .content-layout {
@@ -180,19 +179,16 @@
 
             .main-sections {
                 flex: 1;
-                min-width: 0;
                 order: 2;
             }
 
             .news-sidebar {
-                width: 300px;
-                flex-shrink: 0;
+                width: 320px;
                 order: 1;
             }
 
             .prices-sidebar {
-                width: 300px;
-                flex-shrink: 0;
+                width: 320px;
                 order: 3;
             }
         }
@@ -203,6 +199,12 @@
                 padding: 2rem;
                 margin: 2rem auto;
                 border-radius: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 3rem;
             }
         }
 
@@ -818,6 +820,127 @@
                                                     <li>Price < EMA 3H</li>
                                                     <li>15m Internal Demand Zone</li>
                                                 </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Short Entry 1</div>
+                                            <small style="color: #6b7280;">(Type 1)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H < EMA 1D</li>
+                                                    <li>1H Supply Zone</li>
+                                                    <li>15m Liquidity Grab from high</li>
+                                                    <li>Price > EMA 3H</li>
+                                                    <li>15m Internal Supply Zone</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Long Entry 2</div>
+                                            <small style="color: #6b7280;">(Type 2)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H < EMA 1D</li>
+                                                    <li>M Zone hit</li>
+                                                    <li>1H Demand Zone or CHoCH Zone</li>
+                                                    <li>15m Liquidity Grab from low</li>
+                                                    <li>15m Demand Zone</li>
+                                                    <li>Price < EMA 3H</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Short Entry 2</div>
+                                            <small style="color: #6b7280;">(Type 2)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H > EMA 1D</li>
+                                                    <li>M Zone hit</li>
+                                                    <li>1H Supply Zone or CHoCH Zone</li>
+                                                    <li>15m Liquidity Grab from high</li>
+                                                    <li>15m Supply Zone</li>
+                                                    <li>Price > EMA 3H</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h4>Entry Type Confirmation Methods:</h4>
+                            <ul>
+                                <li>Red 15m Candle</li>
+                                <li>2m CHoCH Pattern</li>
+                                <li>2m First Pullback after CHoCH</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
+                        
+                        <div class="section-content">
+                            <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Category</th>
+                                        <th>Rules</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Zone Validity & Usage</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li>M Zone valid until 2 taps or broken</li>
+                                                <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
+                                                <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
+                                                <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
+                                                <li>Late Entry not allowed if 1H Zone has been hit in between</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Liquidity Grab Rules</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li>Liquidity Grab can be from high, low, or stagnation</li>
+                                                <li>Liquidity grabbed high must be within 6 pips of entry high</li>
+                                                <li>15m Liquidity Grab required for all entries</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Stop Loss & Exit Rules</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li><strong>Initial Stop Loss:</strong>
+                                                    <ul>
+                                                        <li>Shorts → 15m highs</li>
+                                                        <li>Longs → 15m lows</li>
+                                                    </ul>
+                                                </li>
+                                                <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
+                                                <li>If next candle after a long is lower → exit at breakeven (zero)</li>
+                                                <li>If next candle after a short is higher → exit at breakeven (zero)</li>
+                                                <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
+                                                <li>If 1H Zone target is very close to entry → reconsider the trade</li>
+                                            </ul>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1246,123 +1369,3 @@
     </script>
 </body>
 </html>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="entry-type">Short Entry 1</div>
-                                            <small style="color: #6b7280;">(Type 1)</small>
-                                        </td>
-                                        <td>
-                                            <div class="conditions">
-                                                <ul>
-                                                    <li>EMA 3H < EMA 1D</li>
-                                                    <li>1H Supply Zone</li>
-                                                    <li>15m Liquidity Grab from high</li>
-                                                    <li>Price > EMA 3H</li>
-                                                    <li>15m Internal Supply Zone</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="entry-type">Long Entry 2</div>
-                                            <small style="color: #6b7280;">(Type 2)</small>
-                                        </td>
-                                        <td>
-                                            <div class="conditions">
-                                                <ul>
-                                                    <li>EMA 3H < EMA 1D</li>
-                                                    <li>M Zone hit</li>
-                                                    <li>1H Demand Zone or CHoCH Zone</li>
-                                                    <li>15m Liquidity Grab from low</li>
-                                                    <li>15m Demand Zone</li>
-                                                    <li>Price < EMA 3H</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="entry-type">Short Entry 2</div>
-                                            <small style="color: #6b7280;">(Type 2)</small>
-                                        </td>
-                                        <td>
-                                            <div class="conditions">
-                                                <ul>
-                                                    <li>EMA 3H > EMA 1D</li>
-                                                    <li>M Zone hit</li>
-                                                    <li>1H Supply Zone or CHoCH Zone</li>
-                                                    <li>15m Liquidity Grab from high</li>
-                                                    <li>15m Supply Zone</li>
-                                                    <li>Price > EMA 3H</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="highlight-box">
-                            <h4>Entry Type Confirmation Methods:</h4>
-                            <ul>
-                                <li>Red 15m Candle</li>
-                                <li>2m CHoCH Pattern</li>
-                                <li>2m First Pullback after CHoCH</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
-                        
-                        <div class="section-content">
-                            <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th style="width: 25%;">Category</th>
-                                        <th>Rules</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Zone Validity & Usage</strong></td>
-                                        <td>
-                                            <ul>
-                                                <li>M Zone valid until 2 taps or broken</li>
-                                                <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
-                                                <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
-                                                <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
-                                                <li>Late Entry not allowed if 1H Zone has been hit in between</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Liquidity Grab Rules</strong></td>
-                                        <td>
-                                            <ul>
-                                                <li>Liquidity Grab can be from high, low, or stagnation</li>
-                                                <li>Liquidity grabbed high must be within 6 pips of entry high</li>
-                                                <li>15m Liquidity Grab required for all entries</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Stop Loss & Exit Rules</strong></td>
-                                        <td>
-                                            <ul>
-                                                <li><strong>Initial Stop Loss:</strong>
-                                                    <ul>
-                                                        <li>Shorts → 15m highs</li>
-                                                        <li>Longs → 15m lows</li>
-                                                    </ul>
-                                                </li>
-                                                <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
-                                                <li>If next candle after a long is lower → exit at breakeven (zero)</li>
-                                                <li>If next candle after a short is higher → exit at breakeven (zero)</li>
-                                                <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
-                                                <li>If 1H Zone target is very close to entry → reconsider the trade</li>
