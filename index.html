@@ -17,22 +17,92 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: #1a202c;
-            background: #ffffff;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .dark .container {
+            background: #1e293b;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+        }
+
+        .dark .section-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+        }
+
+        .dark .table-container {
+            border: 1px solid #374151;
+        }
+
+        .dark table {
+            background: #374151;
+        }
+
+        .dark th {
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            color: #d1d5db;
+        }
+
+        .dark td {
+            border-bottom: 1px solid #4b5563;
+            color: #d1d5db;
+        }
+
+        .dark tr:hover {
+            background: #4b5563;
+        }
+
+        .dark .risk-item {
+            background: #374151;
+            border-left-color: #10b981;
+        }
+
+        .dark .workflow-step {
+            background: #374151;
+            border-left-color: #3b82f6;
+        }
+
+        .dark .glossary-item {
+            background: #374151;
+            border-left-color: #8b5cf6;
+        }
+
+        .dark .highlight-box {
+            background: #451a03;
+            border-color: #f59e0b;
+        }
+
+        .dark .news-container {
+            background: #374151;
+            border: 1px solid #4b5563;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 1rem;
             background: white;
             min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
         }
 
         /* Responsive Design */
         @media (min-width: 768px) {
             .container {
                 padding: 2rem;
+                margin: 2rem auto;
+                border-radius: 12px;
             }
         }
 
@@ -45,40 +115,58 @@
         /* Header */
         .header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 3px solid #2563eb;
+            margin-bottom: 2.5rem;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            position: relative;
         }
 
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: #1e40af;
+            color: white;
             margin-bottom: 0.5rem;
             letter-spacing: -0.025em;
-        }
-
-        /* Responsive header */
-        @media (min-width: 768px) {
-            .header h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header .version {
-            font-size: 1rem;
-            color: #6b7280;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
-            background: #f3f4f6;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 25px;
             display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
 
         /* Section Headers */
@@ -87,39 +175,26 @@
         }
 
         .section-header {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
             color: white;
-            padding: 0.8rem 1rem;
+            padding: 1rem 1.5rem;
             margin-bottom: 0;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 1.15rem;
             font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
             cursor: pointer;
             user-select: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
-        }
-
-        /* Responsive section headers */
-        @media (min-width: 768px) {
-            .section-header {
-                padding: 1rem 1.5rem;
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .section-header {
-                font-size: 1.25rem;
-            }
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-header:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
         }
 
         .section-header::after {
@@ -149,8 +224,9 @@
         .table-container {
             overflow-x: auto;
             margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
         }
 
         table {
@@ -160,23 +236,30 @@
         }
 
         th {
-            background: #f8fafc;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: #374151;
             font-weight: 600;
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             text-align: left;
             border-bottom: 2px solid #e5e7eb;
             font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
         }
 
         td {
-            padding: 1rem;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
             vertical-align: top;
         }
 
         tr:hover {
-            background: #f9fafb;
+            background: #fafbfc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         .entry-type {
@@ -312,14 +395,117 @@
             .container { padding: 0.5in; }
             .section { break-inside: avoid; page-break-inside: avoid; }
             .table-container { break-inside: avoid; }
+            .theme-toggle { display: none; }
+            .news-container { display: none; }
+        }
+
+        /* News Feed Styles */
+        .news-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .news-header h3 {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0;
+            margin-left: 0.5rem;
+        }
+
+        .news-icon {
+            width: 20px;
+            height: 20px;
+            fill: #dc2626;
+        }
+
+        .news-item {
+            padding: 0.75rem;
+            border-left: 3px solid #dc2626;
+            background: #fef2f2;
+            margin-bottom: 0.75rem;
+            border-radius: 6px;
+        }
+
+        .news-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .news-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0.25rem 0;
+        }
+
+        .news-impact {
+            font-size: 0.8rem;
+            color: #dc2626;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .no-events {
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+            padding: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            color: #6b7280;
+            padding: 1rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                <svg class="sun-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </div>
             <h1>Trading System Rules</h1>
             <div class="version">Draft v1.37</div>
+        </div>
+
+        <!-- News Feed -->
+        <div class="news-container">
+            <div class="news-header">
+                <svg class="news-icon" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <h3>Market Events Alert</h3>
+            </div>
+            <div id="news-content">
+                <div class="loading">Loading economic events...</div>
+            </div>
         </div>
 
         <div class="section">
@@ -614,12 +800,100 @@
             }
         }
 
-        // Initialize all sections as expanded by default
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        }
+
+        // News feed functionality
+        async function loadNewsEvents() {
+            try {
+                // Simulate API call to economic calendar
+                // In a real implementation, you'd use an actual API like ForexFactory or similar
+                const mockEvents = generateMockEvents();
+                displayNewsEvents(mockEvents);
+            } catch (error) {
+                document.getElementById('news-content').innerHTML = 
+                    '<div class="no-events">Unable to load events at this time</div>';
+            }
+        }
+
+        function generateMockEvents() {
+            const today = new Date();
+            const events = [];
+            const eventTypes = [
+                'Federal Reserve Interest Rate Decision',
+                'ECB Monetary Policy Meeting',
+                'ECB Interest Rate Decision', 
+                'Fed Chair Powell Speech',
+                'ECB President Lagarde Speech',
+                'US Federal Reserve Meeting Minutes'
+            ];
+
+            // Generate events for next 7 days
+            for (let i = 0; i < 7; i++) {
+                const eventDate = new Date(today);
+                eventDate.setDate(today.getDate() + i);
+                
+                // Randomly add 1-2 events per day (30% chance per event type)
+                eventTypes.forEach(eventType => {
+                    if (Math.random() < 0.3) {
+                        events.push({
+                            date: eventDate.toISOString().split('T')[0],
+                            title: eventType,
+                            time: `${8 + Math.floor(Math.random() * 10)}:${Math.random() < 0.5 ? '00' : '30'}`,
+                            impact: Math.random() < 0.6 ? 'High' : 'Medium'
+                        });
+                    }
+                });
+            }
+
+            return events.sort((a, b) => new Date(a.date) - new Date(b.date));
+        }
+
+        function displayNewsEvents(events) {
+            const container = document.getElementById('news-content');
+            
+            if (events.length === 0) {
+                container.innerHTML = '<div class="no-events">No major events scheduled for the next 7 days</div>';
+                return;
+            }
+
+            const eventsHtml = events.map(event => {
+                const eventDate = new Date(event.date);
+                const today = new Date();
+                const isToday = eventDate.toDateString() === today.toDateString();
+                const isTomorrow = eventDate.toDateString() === new Date(today.getTime() + 86400000).toDateString();
+                
+                let dateDisplay;
+                if (isToday) dateDisplay = 'Today';
+                else if (isTomorrow) dateDisplay = 'Tomorrow';
+                else dateDisplay = eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+                return `
+                    <div class="news-item">
+                        <div class="news-date">${dateDisplay} at ${event.time} UTC</div>
+                        <div class="news-title">${event.title}</div>
+                        <div class="news-impact">Impact: ${event.impact}</div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = eventsHtml;
+        }
+
+        // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // All sections start expanded, no action needed
+            loadNewsEvents();
+            
+            // Refresh news every 4 hours
+            setInterval(loadNewsEvents, 4 * 60 * 60 * 1000);
         });
     </script>
-</body>
-</html>
 </body>
 </html>
