@@ -549,6 +549,14 @@
             background: #9ca3af;
         }
 
+        /* Desktop: Remove scrolling for news */
+        @media (min-width: 1024px) {
+            .news-content {
+                max-height: none;
+                overflow-y: visible;
+            }
+        }
+
         .news-item {
             padding: 0.5rem;
             border-left: 3px solid;
@@ -646,10 +654,20 @@
             align-items: center;
             padding: 0.75rem 0;
             border-bottom: 1px solid #f1f5f9;
+            width: 48%;
+            margin-bottom: 0.75rem;
         }
 
         .price-item:last-child {
             border-bottom: none;
+        }
+
+        /* Create 2-column layout for prices */
+        #prices-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         .pair-name {
@@ -731,6 +749,19 @@
                 </div>
                 <h1>Trading System Rules</h1>
                 <div class="version">Draft v1.37</div>
+            </div>
+
+            <!-- Live Forex Prices -->
+            <div class="prices-container">
+                <div class="prices-header">
+                    <svg class="prices-icon" viewBox="0 0 24 24">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    <h3>Live Prices</h3>
+                </div>
+                <div id="prices-content">
+                    <div class="loading-prices">Loading forex prices...</div>
+                </div>
             </div>
 
             <div class="content-layout">
@@ -1145,7 +1176,8 @@
                 { symbol: 'OANDA:USD_GBP', display: 'USDGBP' },
                 { symbol: 'OANDA:AUD_USD', display: 'AUDUSD' },
                 { symbol: 'OANDA:USD_CAD', display: 'USDCAD' },
-                { symbol: 'OANDA:USD_JPY', display: 'USDJPY' }
+                { symbol: 'OANDA:USD_JPY', display: 'USDJPY' },
+                { symbol: 'BINANCE:BTCUSDT', display: 'USDBTC' }
             ];
             const pricesContainer = document.getElementById('prices-content');
             
@@ -1167,13 +1199,23 @@
                                 const change = currentPrice - previousClose;
                                 const changePercent = ((change / previousClose) * 100).toFixed(2);
                                 
-                                const formattedPrice = pair.display === 'USDJPY' ? 
-                                    currentPrice.toFixed(2) : 
-                                    currentPrice.toFixed(4);
-                                
-                                const formattedChange = pair.display === 'USDJPY' ? 
-                                    change.toFixed(2) : 
-                                    change.toFixed(4);
+                                // Format price based on pair
+                                let formattedPrice, formattedChange;
+                                if (pair.display === 'USDJPY') {
+                                    formattedPrice = currentPrice.toFixed(2);
+                                    formattedChange = change.toFixed(2);
+                                } else if (pair.display === 'USDBTC') {
+                                    // For BTC, show as 1/price to get USD to BTC rate
+                                    const usdbtcRate = 1 / currentPrice;
+                                    const prevUsdbtcRate = 1 / previousClose;
+                                    const usdbtcChange = usdbtcRate - prevUsdbtcRate;
+                                    
+                                    formattedPrice = usdbtcRate.toFixed(8);
+                                    formattedChange = usdbtcChange.toFixed(8);
+                                } else {
+                                    formattedPrice = currentPrice.toFixed(4);
+                                    formattedChange = change.toFixed(4);
+                                }
                                 
                                 pricesHtml += `
                                     <div class="price-item">
