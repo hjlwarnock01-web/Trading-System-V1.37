@@ -793,284 +793,162 @@
 
                 <!-- Main Trading System Content -->
                 <div class="main-sections">
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
+                        
+                        <div class="section-content">
+                            <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Entry Type</th>
+                                        <th>Conditions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Long Entry 1</div>
+                                            <small style="color: #6b7280;">(Type 1)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H > EMA 1D</li>
+                                                    <li>1H Demand Zone</li>
+                                                    <li>15m Liquidity Grab from low</li>
+                                                    <li>Price < EMA 3H</li>
+                                                    <li>15m Internal Demand Zone</li>
+                                                </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Market Structure Rules</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>News Filters</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li><strong>Avoid trading during:</strong>
+                                                    <ul>
+                                                        <li>ECB events</li>
+                                                        <li>Fed events</li>
+                                                        <li>US interest rate events</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Entry Type</th>
-                            <th>Conditions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>1H Demand Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>Price < EMA 3H</li>
-                                        <li>15m Internal Demand Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>1H Supply Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>Price > EMA 3H</li>
-                                        <li>15m Internal Supply Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Demand Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>15m Demand Zone</li>
-                                        <li>Price < EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Supply Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>15m Supply Zone</li>
-                                        <li>Price > EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
+                        
+                        <div class="section-content">
+                            <div class="risk-grid">
+                            <div class="risk-item">
+                                <div class="risk-label">Risk per trade</div>
+                                <div class="risk-value">1% of account balance</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-label">Max daily loss</div>
+                                <div class="risk-value">3%</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-label">Max account drawdown</div>
+                                <div class="risk-value">10%</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-label">Max open trades</div>
+                                <div class="risk-value">1</div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="highlight-box">
-                <h4>Entry Type Confirmation Methods:</h4>
-                <ul>
-                    <li>Red 15m Candle</li>
-                    <li>2m CHoCH Pattern</li>
-                    <li>2m First Pullback after CHoCH</li>
-                </ul>
-            </div>
-        </div>
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">4. Usage Guidelines (Workflow)</div>
+                        
+                        <div class="section-content">
+                            <div class="workflow">
+                            <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
+                            <div class="workflow-step">Check market structure</div>
+                            <div class="workflow-step">Mark 1H Supply & Demand Zones</div>
+                            <div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
+                            <div class="workflow-step">Wait for 1H Zone to be hit</div>
+                            <div class="workflow-step">Wait for 15m Liquidity Grab</div>
+                            <div class="workflow-step">Enter trade based on entry type (1 or 2) with confirmation</div>
+                        </div>
+                    </div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Category</th>
-                            <th>Rules</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Zone Validity & Usage</strong></td>
-                            <td>
-                                <ul>
-                                    <li>M Zone valid until 2 taps or broken</li>
-                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
-                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
-                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
-                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Liquidity Grab Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
-                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
-                                    <li>15m Liquidity Grab required for all entries</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Stop Loss & Exit Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Initial Stop Loss:</strong>
-                                        <ul>
-                                            <li>Shorts → 15m highs</li>
-                                            <li>Longs → 15m lows</li>
-                                        </ul>
-                                    </li>
-                                    <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
-                                    <li>If next candle after a long is lower → exit at breakeven (zero)</li>
-                                    <li>If next candle after a short is higher → exit at breakeven (zero)</li>
-                                    <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
-                                    <li>If 1H Zone target is very close to entry → reconsider the trade</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Market Structure Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>News Filters</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Avoid trading during:</strong>
-                                        <ul>
-                                            <li>ECB events</li>
-                                            <li>Fed events</li>
-                                            <li>US interest rate events</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
+                        
+                        <div class="section-content">
+                            <div class="highlight-box">
+                            <ul>
+                                <li>System may miss trades — this is expected</li>
+                                <li>Some days will produce no valid trades — remain patient</li>
+                                <li>Drawdowns are normal; follow risk rules strictly</li>
+                            </ul>
+                        </div>
+                    </div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
-            
-            <div class="section-content">
-                <div class="risk-grid">
-                <div class="risk-item">
-                    <div class="risk-label">Risk per trade</div>
-                    <div class="risk-value">1% of account balance</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max daily loss</div>
-                    <div class="risk-value">3%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max account drawdown</div>
-                    <div class="risk-value">10%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max open trades</div>
-                    <div class="risk-value">1</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">4. Usage Guidelines (Workflow)</div>
-            
-            <div class="section-content">
-                <div class="workflow">
-                <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
-                <div class="workflow-step">Check market structure</div>
-                <div class="workflow-step">Mark 1H Supply & Demand Zones</div>
-                <div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
-                <div class="workflow-step">Wait for 1H Zone to be hit</div>
-                <div class="workflow-step">Wait for 15m Liquidity Grab</div>
-                <div class="workflow-step">Enter trade based on entry type (1 or 2) with confirmation</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
-            
-            <div class="section-content">
-                <div class="highlight-box">
-                <ul>
-                    <li>System may miss trades — this is expected</li>
-                    <li>Some days will produce no valid trades — remain patient</li>
-                    <li>Drawdowns are normal; follow risk rules strictly</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
-            
-            <div class="section-content">
-                <div class="glossary-grid">
-                <div class="glossary-item">
-                    <div class="glossary-term">EMA (Exponential Moving Average)</div>
-                    <div class="glossary-definition">Weighted moving average giving more importance to recent price data.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">M Zones</div>
-                    <div class="glossary-definition">Higher timeframe (1D, 12H, 3D) supply or demand zones.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">1H Zones</div>
-                    <div class="glossary-definition">Key supply or demand levels formed on the 1-hour chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">15m Zones</div>
-                    <div class="glossary-definition">Internal supply or demand levels on the 15-minute chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">LQG (Liquidity Grab)</div>
-                    <div class="glossary-definition">A price move that sweeps stop losses/liquidity before reversing.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">CHoCH (Change of Character)</div>
-                    <div class="glossary-definition">A shift in market structure that signals a potential reversal.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Supply Zone</div>
-                    <div class="glossary-definition">Area where selling pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Demand Zone</div>
-                    <div class="glossary-definition">Area where buying pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Drawdown</div>
-                    <div class="glossary-definition">Reduction in account equity from peak to trough.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">SL (Stop Loss)</div>
-                    <div class="glossary-definition">Predefined level where a trade is closed to prevent further loss.</div>
-                </div>
-                </div>
-            </div>
-        </div>
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
+                        
+                        <div class="section-content">
+                            <div class="glossary-grid">
+                            <div class="glossary-item">
+                                <div class="glossary-term">EMA (Exponential Moving Average)</div>
+                                <div class="glossary-definition">Weighted moving average giving more importance to recent price data.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">M Zones</div>
+                                <div class="glossary-definition">Higher timeframe (1D, 12H, 3D) supply or demand zones.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">1H Zones</div>
+                                <div class="glossary-definition">Key supply or demand levels formed on the 1-hour chart.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">15m Zones</div>
+                                <div class="glossary-definition">Internal supply or demand levels on the 15-minute chart.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">LQG (Liquidity Grab)</div>
+                                <div class="glossary-definition">A price move that sweeps stop losses/liquidity before reversing.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">CHoCH (Change of Character)</div>
+                                <div class="glossary-definition">A shift in market structure that signals a potential reversal.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">Supply Zone</div>
+                                <div class="glossary-definition">Area where selling pressure is expected to emerge.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">Demand Zone</div>
+                                <div class="glossary-definition">Area where buying pressure is expected to emerge.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">Drawdown</div>
+                                <div class="glossary-definition">Reduction in account equity from peak to trough.</div>
+                            </div>
+                            <div class="glossary-item">
+                                <div class="glossary-term">SL (Stop Loss)</div>
+                                <div class="glossary-definition">Predefined level where a trade is closed to prevent further loss.</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Prices Sidebar (Right on desktop, second on mobile) -->
@@ -1086,285 +964,6 @@
                             <div class="loading-prices">Loading forex prices...</div>
                         </div>
                     </div>
-                </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Entry Type</th>
-                            <th>Conditions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>1H Demand Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>Price < EMA 3H</li>
-                                        <li>15m Internal Demand Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>1H Supply Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>Price > EMA 3H</li>
-                                        <li>15m Internal Supply Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Demand Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>15m Demand Zone</li>
-                                        <li>Price < EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Supply Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>15m Supply Zone</li>
-                                        <li>Price > EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="highlight-box">
-                <h4>Entry Type Confirmation Methods:</h4>
-                <ul>
-                    <li>Red 15m Candle</li>
-                    <li>2m CHoCH Pattern</li>
-                    <li>2m First Pullback after CHoCH</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Category</th>
-                            <th>Rules</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Zone Validity & Usage</strong></td>
-                            <td>
-                                <ul>
-                                    <li>M Zone valid until 2 taps or broken</li>
-                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
-                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
-                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
-                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Liquidity Grab Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
-                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
-                                    <li>15m Liquidity Grab required for all entries</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Stop Loss & Exit Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Initial Stop Loss:</strong>
-                                        <ul>
-                                            <li>Shorts → 15m highs</li>
-                                            <li>Longs → 15m lows</li>
-                                        </ul>
-                                    </li>
-                                    <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
-                                    <li>If next candle after a long is lower → exit at breakeven (zero)</li>
-                                    <li>If next candle after a short is higher → exit at breakeven (zero)</li>
-                                    <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
-                                    <li>If 1H Zone target is very close to entry → reconsider the trade</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Market Structure Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>News Filters</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Avoid trading during:</strong>
-                                        <ul>
-                                            <li>ECB events</li>
-                                            <li>Fed events</li>
-                                            <li>US interest rate events</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
-            
-            <div class="section-content">
-                <div class="risk-grid">
-                <div class="risk-item">
-                    <div class="risk-label">Risk per trade</div>
-                    <div class="risk-value">1% of account balance</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max daily loss</div>
-                    <div class="risk-value">3%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max account drawdown</div>
-                    <div class="risk-value">10%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max open trades</div>
-                    <div class="risk-value">1</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">4. Usage Guidelines (Workflow)</div>
-            
-            <div class="section-content">
-                <div class="workflow">
-                <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
-                <div class="workflow-step">Check market structure</div>
-                <div class="workflow-step">Mark 1H Supply & Demand Zones</div>
-                <div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
-                <div class="workflow-step">Wait for 1H Zone to be hit</div>
-                <div class="workflow-step">Wait for 15m Liquidity Grab</div>
-                <div class="workflow-step">Enter trade based on entry type (1 or 2) with confirmation</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
-            
-            <div class="section-content">
-                <div class="highlight-box">
-                <ul>
-                    <li>System may miss trades — this is expected</li>
-                    <li>Some days will produce no valid trades — remain patient</li>
-                    <li>Drawdowns are normal; follow risk rules strictly</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
-            
-            <div class="section-content">
-                <div class="glossary-grid">
-                <div class="glossary-item">
-                    <div class="glossary-term">EMA (Exponential Moving Average)</div>
-                    <div class="glossary-definition">Weighted moving average giving more importance to recent price data.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">M Zones</div>
-                    <div class="glossary-definition">Higher timeframe (1D, 12H, 3D) supply or demand zones.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">1H Zones</div>
-                    <div class="glossary-definition">Key supply or demand levels formed on the 1-hour chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">15m Zones</div>
-                    <div class="glossary-definition">Internal supply or demand levels on the 15-minute chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">LQG (Liquidity Grab)</div>
-                    <div class="glossary-definition">A price move that sweeps stop losses/liquidity before reversing.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">CHoCH (Change of Character)</div>
-                    <div class="glossary-definition">A shift in market structure that signals a potential reversal.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Supply Zone</div>
-                    <div class="glossary-definition">Area where selling pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Demand Zone</div>
-                    <div class="glossary-definition">Area where buying pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Drawdown</div>
-                    <div class="glossary-definition">Reduction in account equity from peak to trough.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">SL (Stop Loss)</div>
-                    <div class="glossary-definition">Predefined level where a trade is closed to prevent further loss.</div>
-                </div>
-                </div>
-            </div>
-        </div>
                 </div>
             </div>
         </div>
@@ -1649,3 +1248,123 @@
     </script>
 </body>
 </html>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Short Entry 1</div>
+                                            <small style="color: #6b7280;">(Type 1)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H < EMA 1D</li>
+                                                    <li>1H Supply Zone</li>
+                                                    <li>15m Liquidity Grab from high</li>
+                                                    <li>Price > EMA 3H</li>
+                                                    <li>15m Internal Supply Zone</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Long Entry 2</div>
+                                            <small style="color: #6b7280;">(Type 2)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H < EMA 1D</li>
+                                                    <li>M Zone hit</li>
+                                                    <li>1H Demand Zone or CHoCH Zone</li>
+                                                    <li>15m Liquidity Grab from low</li>
+                                                    <li>15m Demand Zone</li>
+                                                    <li>Price < EMA 3H</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="entry-type">Short Entry 2</div>
+                                            <small style="color: #6b7280;">(Type 2)</small>
+                                        </td>
+                                        <td>
+                                            <div class="conditions">
+                                                <ul>
+                                                    <li>EMA 3H > EMA 1D</li>
+                                                    <li>M Zone hit</li>
+                                                    <li>1H Supply Zone or CHoCH Zone</li>
+                                                    <li>15m Liquidity Grab from high</li>
+                                                    <li>15m Supply Zone</li>
+                                                    <li>Price > EMA 3H</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h4>Entry Type Confirmation Methods:</h4>
+                            <ul>
+                                <li>Red 15m Candle</li>
+                                <li>2m CHoCH Pattern</li>
+                                <li>2m First Pullback after CHoCH</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
+                        
+                        <div class="section-content">
+                            <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Category</th>
+                                        <th>Rules</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Zone Validity & Usage</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li>M Zone valid until 2 taps or broken</li>
+                                                <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
+                                                <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
+                                                <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
+                                                <li>Late Entry not allowed if 1H Zone has been hit in between</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Liquidity Grab Rules</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li>Liquidity Grab can be from high, low, or stagnation</li>
+                                                <li>Liquidity grabbed high must be within 6 pips of entry high</li>
+                                                <li>15m Liquidity Grab required for all entries</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Stop Loss & Exit Rules</strong></td>
+                                        <td>
+                                            <ul>
+                                                <li><strong>Initial Stop Loss:</strong>
+                                                    <ul>
+                                                        <li>Shorts → 15m highs</li>
+                                                        <li>Longs → 15m lows</li>
+                                                    </ul>
+                                                </li>
+                                                <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
+                                                <li>If next candle after a long is lower → exit at breakeven (zero)</li>
+                                                <li>If next candle after a short is higher → exit at breakeven (zero)</li>
+                                                <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
+                                                <li>If 1H Zone target is very close to entry → reconsider the trade</li>
