@@ -1,899 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading System Rules - Professional Documentation</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #1a202c;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        /* Dark mode styles */
-        body.dark {
-            color: #e2e8f0;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        .dark .container {
-            background: #1e293b;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .dark .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
-        }
-
-        .dark .section-header {
-            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
-        }
-
-        .dark .table-container {
-            border: 1px solid #374151;
-        }
-
-        .dark table {
-            background: #374151;
-        }
-
-        .dark th {
-            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
-            color: #d1d5db;
-        }
-
-        .dark td {
-            border-bottom: 1px solid #4b5563;
-            color: #d1d5db;
-        }
-
-        .dark tr:hover {
-            background: #4b5563;
-        }
-
-        .dark .risk-item {
-            background: #374151;
-            border-left-color: #10b981;
-        }
-
-        .dark .workflow-step {
-            background: #374151;
-            border-left-color: #3b82f6;
-        }
-
-        .dark .glossary-item {
-            background: #374151;
-            border-left-color: #8b5cf6;
-        }
-
-        .dark .highlight-box {
-            background: #451a03;
-            border-color: #f59e0b;
-        }
-
-        .dark .news-container {
-            background: #374151;
-            border: 1px solid #4b5563;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1rem;
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .container {
-                padding: 2rem;
-                margin: 2rem auto;
-                border-radius: 12px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                padding: 3rem;
-            }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            padding: 2rem 1.5rem;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-            position: relative;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.025em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header .version {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 0.4rem 1.2rem;
-            border-radius: 25px;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Dark mode toggle */
-        .theme-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* Section Headers */
-        .section {
-            margin-bottom: 1rem;
-        }
-
-        .section-header {
-            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            margin-bottom: 0;
-            border-radius: 10px;
-            font-size: 1.15rem;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .section-header:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
-        }
-
-        .section-header::after {
-            content: '▼';
-            font-size: 0.9rem;
-            transition: transform 0.3s ease;
-        }
-
-        .section-header.collapsed::after {
-            transform: rotate(-90deg);
-        }
-
-        .section-content {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .section-content.hidden {
-            max-height: 0;
-            margin-top: 0;
-            opacity: 0;
-        }
-
-        /* Tables */
-        .table-container {
-            overflow-x: auto;
-            margin-bottom: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        th {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            color: #374151;
-            font-weight: 600;
-            padding: 1.2rem 1rem;
-            text-align: left;
-            border-bottom: 2px solid #e5e7eb;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.85rem;
-        }
-
-        td {
-            padding: 1.2rem 1rem;
-            border-bottom: 1px solid #f1f5f9;
-            vertical-align: top;
-        }
-
-        tr:hover {
-            background: #fafbfc;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .entry-type {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-
-        .conditions {
-            color: #4b5563;
-            line-height: 1.7;
-        }
-
-        .conditions li {
-            margin-bottom: 0.25rem;
-        }
-
-        /* Lists */
-        ul {
-            padding-left: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-        }
-
-        /* Risk Management Grid */
-        .risk-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .risk-item {
-            background: #f8fafc;
-            padding: 1.25rem;
-            border-radius: 8px;
-            border-left: 4px solid #10b981;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-        }
-
-        .risk-label {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-
-        .risk-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #10b981;
-        }
-
-        /* Workflow Steps */
-        .workflow {
-            counter-reset: step-counter;
-        }
-
-        .workflow-step {
-            counter-increment: step-counter;
-            background: #f8fafc;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-            border-radius: 8px;
-            border-left: 4px solid #3b82f6;
-            position: relative;
-            padding-left: 3rem;
-        }
-
-        .workflow-step::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 1rem;
-            top: 1rem;
-            background: #3b82f6;
-            color: white;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        /* Glossary */
-        .glossary-grid {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .glossary-item {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #8b5cf6;
-        }
-
-        .glossary-term {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.25rem;
-        }
-
-        .glossary-definition {
-            color: #4b5563;
-            line-height: 1.6;
-        }
-
-        /* Highlights */
-        .highlight-box {
-            background: #fef3c7;
-            border: 1px solid #f59e0b;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-
-        .highlight-box h4 {
-            color: #92400e;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Print Styles */
-        @media print {
-            body { font-size: 12px; }
-            .container { padding: 0.5in; }
-            .section { break-inside: avoid; page-break-inside: avoid; }
-            .table-container { break-inside: avoid; }
-            .theme-toggle { display: none; }
-            .news-container { display: none; }
-        }
-
-        /* News Feed Styles */
-        .news-container {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .news-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .news-header h3 {
-            color: #dc2626;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin: 0;
-            margin-left: 0.5rem;
-        }
-
-        .news-icon {
-            width: 20px;
-            height: 20px;
-            fill: #dc2626;
-        }
-
-        .news-item {
-            padding: 0.75rem;
-            border-left: 3px solid #dc2626;
-            background: #fef2f2;
-            margin-bottom: 0.75rem;
-            border-radius: 6px;
-        }
-
-        .news-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .news-date {
-            font-size: 0.85rem;
-            color: #6b7280;
-            font-weight: 500;
-        }
-
-        .news-title {
-            font-weight: 600;
-            color: #1f2937;
-            margin: 0.25rem 0;
-        }
-
-        .news-impact {
-            font-size: 0.8rem;
-            color: #dc2626;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .no-events {
-            text-align: center;
-            color: #6b7280;
-            font-style: italic;
-            padding: 1rem;
-        }
-
-        .loading {
-            text-align: center;
-            color: #6b7280;
-            padding: 1rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading System Rules - Draft v1.37</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#f8fafc 0%,#e2e8f0 100%);color:#1a202c;line-height:1.6;font-size:14px;transition:all 0.3s;}
+body.dark{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#e2e8f0;}
+.container{max-width:900px;margin:2rem auto;padding:2rem;background:white;border-radius:12px;box-shadow:0 0 30px rgba(0,0,0,.05);min-height:100vh;}
+body.dark .container{background:#1e293b;box-shadow:0 0 30px rgba(0,0,0,.3);}
+.header{text-align:center;margin-bottom:2.5rem;padding:2rem;border-radius:12px;color:white;background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);position:relative;box-shadow:0 8px 25px rgba(59,130,246,.15);}
+.header h1{font-size:2.5rem;font-weight:700;margin-bottom:.5rem;}
+.header .version{font-size:.95rem;font-weight:500;background:rgba(255,255,255,.15);padding:.4rem 1.2rem;border-radius:25px;display:inline-block;border:1px solid rgba(255,255,255,.2);}
+.theme-toggle{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:.5rem;cursor:pointer;backdrop-filter:blur(10px);}
+.theme-toggle svg{width:20px;height:20px;fill:white;}
+.section-header{background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);color:white;padding:1rem 1.5rem;margin-bottom:0;border-radius:10px;font-size:1.15rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .3s;border:1px solid rgba(255,255,255,.1);}
+.section-header:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(37,99,235,.25);}
+.section-header::after{content:'▼';font-size:.9rem;transition:transform .3s;}
+.section-header.collapsed::after{transform:rotate(-90deg);}
+.section-content{margin-top:1.5rem;margin-bottom:1.5rem;transition:all .3s ease;overflow:hidden;}
+.section-content.hidden{max-height:0;margin-top:0;opacity:0;}
+.table-container{overflow-x:auto;margin-bottom:1.5rem;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);border:1px solid #e2e8f0;}
+table{width:100%;border-collapse:collapse;background:white;}
+th{background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);color:#374151;font-weight:600;padding:1.2rem 1rem;text-align:left;border-bottom:2px solid #e5e7eb;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;}
+td{padding:1.2rem 1rem;border-bottom:1px solid #f1f5f9;vertical-align:top;}
+tr:hover{background:#fafbfc;}
+.entry-type{font-weight:600;color:#1f2937;margin-bottom:.5rem;}
+.conditions{color:#4b5563;line-height:1.7;}
+.conditions li{margin-bottom:.25rem;}
+ul{padding-left:1.25rem;margin-bottom:1rem;}
+li{margin-bottom:.5rem;color:#4b5563;}
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.risk-item{background:#f8fafc;padding:1.25rem;border-radius:8px;border-left:4px solid #10b981;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.risk-label{font-weight:600;color:#1f2937;margin-bottom:.5rem;}
+.risk-value{font-size:1.1rem;font-weight:500;color:#10b981;}
+.workflow{counter-reset:step-counter;}
+.workflow-step{counter-increment:step-counter;background:#f8fafc;padding:1rem;margin-bottom:.75rem;border-radius:8px;border-left:4px solid #3b82f6;position:relative;padding-left:3rem;}
+.workflow-step::before{content:counter(step-counter);position:absolute;left:1rem;top:1rem;background:#3b82f6;color:white;width:1.5rem;height:1.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;}
+.glossary-grid{display:grid;gap:1rem;margin-bottom:1.5rem;}
+.glossary-item{background:#f8fafc;padding:1rem;border-radius:8px;border-left:4px solid #8b5cf6;}
+.glossary-term{font-weight:600;color:#1f2937;margin-bottom:.25rem;}
+.glossary-definition{color:#4b5563;line-height:1.6;}
+.highlight-box{background:#fef3c7;border:1px solid #f59e0b;padding:1rem;border-radius:8px;margin:1rem 0;}
+.highlight-box h4{color:#92400e;font-weight:600;margin-bottom:.5rem;}
+body.dark .section-header{background:linear-gradient(135deg,#1e40af 0%,#3730a3 100%);}
+body.dark table{background:#374151;}
+body.dark th{background:linear-gradient(135deg,#374151 0%,#4b5563 100%);color:#d1d5db;}
+body.dark td{border-bottom:1px solid #4b5563;color:#d1d5db;}
+body.dark tr:hover{background:#4b5563;}
+body.dark .risk-item{background:#374151;border-left-color:#10b981;}
+body.dark .workflow-step{background:#374151;border-left-color:#3b82f6;}
+body.dark .glossary-item{background:#374151;border-left-color:#8b5cf6;}
+body.dark .highlight-box{background:#451a03;border-color:#f59e0b;}
+body.dark .news-container{background:#374151;border:1px solid #4b5563;}
+.news-container{background:white;border:1px solid #e2e8f0;border-radius:12px;padding:1.5rem;margin-bottom:2rem;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.news-header{display:flex;align-items:center;margin-bottom:1rem;}
+.news-header h3{color:#dc2626;font-weight:600;font-size:1.1rem;margin-left:.5rem;}
+.news-item{padding:.75rem;border-left:3px solid #dc2626;background:#fef2f2;margin-bottom:.75rem;border-radius:6px;}
+.news-date{font-size:.85rem;color:#6b7280;font-weight:500;}
+.news-title{font-weight:600;color:#1f2937;margin:.25rem 0;}
+.news-impact{font-size:.8rem;color:#dc2626;font-weight:600;text-transform:uppercase;}
+.no-events{text-align:center;color:#6b7280;font-style:italic;padding:1rem;}
+.loading{text-align:center;color:#6b7280;padding:1rem;}
+@media print{body{font-size:12px}.container{padding:.5in}.section,.table-container{break-inside:avoid}.theme-toggle,.news-container{display:none}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
-                <svg class="sun-icon" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="5"/>
-                    <line x1="12" y1="1" x2="12" y2="3"/>
-                    <line x1="12" y1="21" x2="12" y2="23"/>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                    <line x1="1" y1="12" x2="3" y2="12"/>
-                    <line x1="21" y1="12" x2="23" y2="12"/>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                </svg>
-            </div>
-            <h1>Trading System Rules</h1>
-            <div class="version">Draft v1.37</div>
-        </div>
+<div class="container">
+<div class="header">
+<div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</div>
+<h1>Trading System Rules</h1>
+<div class="version">Draft v1.37</div>
+</div>
 
-        <!-- News Feed -->
-        <div class="news-container">
-            <div class="news-header">
-                <svg class="news-icon" viewBox="0 0 24 24">
-                    <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
-                    <path d="M9 12l2 2 4-4"/>
-                </svg>
-                <h3>Market Events Alert</h3>
-            </div>
-            <div id="news-content">
-                <div class="loading">Loading economic events...</div>
-            </div>
-        </div>
+<div class="news-container">
+<div class="news-header">
+<svg class="news-icon" viewBox="0 0 24 24"><path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/><path d="M9 12l2 2 4-4"/></svg>
+<h3>Market Events Alert</h3>
+</div>
+<div id="news-content"><div class="loading">Loading economic events...</div></div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Entry Type</th>
-                            <th>Conditions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>1H Demand Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>Price < EMA 3H</li>
-                                        <li>15m Internal Demand Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 1</div>
-                                <small style="color: #6b7280;">(Type 1)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>1H Supply Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>Price > EMA 3H</li>
-                                        <li>15m Internal Supply Zone</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Long Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H < EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Demand Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from low</li>
-                                        <li>15m Demand Zone</li>
-                                        <li>Price < EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="entry-type">Short Entry 2</div>
-                                <small style="color: #6b7280;">(Type 2)</small>
-                            </td>
-                            <td>
-                                <div class="conditions">
-                                    <ul>
-                                        <li>EMA 3H > EMA 1D</li>
-                                        <li>M Zone hit</li>
-                                        <li>1H Supply Zone or CHoCH Zone</li>
-                                        <li>15m Liquidity Grab from high</li>
-                                        <li>15m Supply Zone</li>
-                                        <li>Price > EMA 3H</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">1. Entry Rules</div>
+<div class="section-content">
+<div class="table-container">
+<table>
+<thead><tr><th>Entry Type</th><th>Conditions</th></tr></thead>
+<tbody>
+<tr><td><div class="entry-type">Long Entry 1</div></td><td><ul><li>EMA 3H > EMA 1D</li><li>1H Demand Zone</li><li>15m Liquidity Grab from low</li><li>Price < EMA 3H</li><li>15m Internal Demand Zone</li></ul></td></tr>
+<tr><td><div class="entry-type">Short Entry 1</div></td><td><ul><li>EMA 3H < EMA 1D</li><li>1H Supply Zone</li><li>15m Liquidity Grab from high</li><li>Price > EMA 3H</li><li>15m Internal Supply Zone</li></ul></td></tr>
+<tr><td><div class="entry-type">Long Entry 2</div></td><td><ul><li>EMA 3H < EMA 1D</li><li>M Zone hit</li><li>1H Demand Zone or CHoCH Zone</li><li>15m Liquidity Grab from low</li><li>15m Demand Zone</li><li>Price < EMA 3H</li></ul></td></tr>
+<tr><td><div class="entry-type">Short Entry 2</div></td><td><ul><li>EMA 3H > EMA 1D</li><li>M Zone hit</li><li>1H Supply Zone or CHoCH Zone</li><li>15m Liquidity Grab from high</li><li>15m Supply Zone</li><li>Price > EMA 3H</li></ul></td></tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-box">
+<h4>Entry Type Confirmation Methods:</h4>
+<ul><li>Red 15m Candle</li><li>2m CHoCH Pattern</li><li>2m First Pullback after CHoCH</li></ul>
+</div>
+</div>
+</div>
 
-            <div class="highlight-box">
-                <h4>Entry Type Confirmation Methods:</h4>
-                <ul>
-                    <li>Red 15m Candle</li>
-                    <li>2m CHoCH Pattern</li>
-                    <li>2m First Pullback after CHoCH</li>
-                </ul>
-            </div>
-        </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
+<div class="section-content">
+<div class="table-container">
+<table>
+<thead><tr><th>Category</th><th>Rules</th></tr></thead>
+<tbody>
+<tr><td><strong>Zone Validity & Usage</strong></td><td><ul><li>M Zone valid until 2 taps or broken</li><li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li><li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li><li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li><li>Late Entry not allowed if 1H Zone has been hit in between</li></ul></td></tr>
+<tr><td><strong>Liquidity Grab Rules</strong></td><td><ul><li>Liquidity Grab can be from high, low, or stagnation</li><li>Liquidity grabbed high must be within 6 pips of entry high</li><li>15m Liquidity Grab required for all entries</li></ul></td></tr>
+<tr><td><strong>Stop Loss & Exit Rules</strong></td><td><ul><li><strong>Initial Stop Loss:</strong> Shorts → 15m highs, Longs → 15m lows</li><li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li><li>If next candle after a long is lower → exit at breakeven</li><li>If next candle after a short is higher → exit at breakeven</li><li>Exit on 1H Zone = based on 2m SL or via reversal trade</li><li>If 1H Zone target is very close to entry → reconsider the trade</li></ul></td></tr>
+<tr><td><strong>Market Structure Rules</strong></td><td><ul><li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li></ul></td></tr>
+<tr><td><strong>News Filters</strong></td><td><ul><li><strong>Avoid trading during:</strong> ECB, Fed, US Interest Rate Events</li></ul></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">2. Additional Rules</div>
-            
-            <div class="section-content">
-                <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 25%;">Category</th>
-                            <th>Rules</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Zone Validity & Usage</strong></td>
-                            <td>
-                                <ul>
-                                    <li>M Zone valid until 2 taps or broken</li>
-                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
-                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
-                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
-                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Liquidity Grab Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
-                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
-                                    <li>15m Liquidity Grab required for all entries</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Stop Loss & Exit Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Initial Stop Loss:</strong>
-                                        <ul>
-                                            <li>Shorts → 15m highs</li>
-                                            <li>Longs → 15m lows</li>
-                                        </ul>
-                                    </li>
-                                    <li>If 1H Zone is hit with open position → SL adjusts to 2m trend</li>
-                                    <li>If next candle after a long is lower → exit at breakeven (zero)</li>
-                                    <li>If next candle after a short is higher → exit at breakeven (zero)</li>
-                                    <li>Exit on 1H Zone = based on 2m SL or via reversal trade</li>
-                                    <li>If 1H Zone target is very close to entry → reconsider the trade</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Market Structure Rules</strong></td>
-                            <td>
-                                <ul>
-                                    <li>Market Structure Indicator shifts to CHoCH pullback after confirmed 1H CHoCH</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>News Filters</strong></td>
-                            <td>
-                                <ul>
-                                    <li><strong>Avoid trading during:</strong>
-                                        <ul>
-                                            <li>ECB events</li>
-                                            <li>Fed events</li>
-                                            <li>US interest rate events</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
+<div class="section-content">
+<div class="risk-grid">
+<div class="risk-item"><div class="risk-label">Risk per trade</div><div class="risk-value">1%</div></div>
+<div class="risk-item"><div class="risk-label">Max daily loss</div><div class="risk-value">3%</div></div>
+<div class="risk-item"><div class="risk-label">Max account drawdown</div><div class="risk-value">10%</div></div>
+<div class="risk-item"><div class="risk-label">Max open trades</div><div class="risk-value">1</div></div>
+</div>
+</div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">3. Risk Management Framework</div>
-            
-            <div class="section-content">
-                <div class="risk-grid">
-                <div class="risk-item">
-                    <div class="risk-label">Risk per trade</div>
-                    <div class="risk-value">1% of account balance</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max daily loss</div>
-                    <div class="risk-value">3%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max account drawdown</div>
-                    <div class="risk-value">10%</div>
-                </div>
-                <div class="risk-item">
-                    <div class="risk-label">Max open trades</div>
-                    <div class="risk-value">1</div>
-                </div>
-            </div>
-        </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">4. Workflow</div>
+<div class="section-content">
+<div class="workflow">
+<div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
+<div class="workflow-step">Check market structure</div>
+<div class="workflow-step">Mark 1H Supply & Demand Zones</div>
+<div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
+<div class="workflow-step">Wait for 1H Zone to be hit</div>
+<div class="workflow-step">Wait for 15m Liquidity Grab</div>
+<div class="workflow-step">Enter trade based on entry type with confirmation</div>
+</div>
+</div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">4. Usage Guidelines (Workflow)</div>
-            
-            <div class="section-content">
-                <div class="workflow">
-                <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
-                <div class="workflow-step">Check market structure</div>
-                <div class="workflow-step">Mark 1H Supply & Demand Zones</div>
-                <div class="workflow-step">Check EMA alignment (3H vs 1D)</div>
-                <div class="workflow-step">Wait for 1H Zone to be hit</div>
-                <div class="workflow-step">Wait for 15m Liquidity Grab</div>
-                <div class="workflow-step">Enter trade based on entry type (1 or 2) with confirmation</div>
-            </div>
-        </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
+<div class="section-content">
+<div class="highlight-box">
+<ul><li>System may miss trades — this is expected</li><li>Some days will produce no valid trades — remain patient</li><li>Drawdowns are normal; follow risk rules strictly</li></ul>
+</div>
+</div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">5. Performance & Expectations</div>
-            
-            <div class="section-content">
-                <div class="highlight-box">
-                <ul>
-                    <li>System may miss trades — this is expected</li>
-                    <li>Some days will produce no valid trades — remain patient</li>
-                    <li>Drawdowns are normal; follow risk rules strictly</li>
-                </ul>
-            </div>
-        </div>
+<div class="section">
+<div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
+<div class="section-content">
+<div class="glossary-grid">
+<div class="glossary-item"><div class="glossary-term">EMA</div><div class="glossary-definition">Exponential Moving Average giving more weight to recent prices</div></div>
+<div class="glossary-item"><div class="glossary-term">M Zones</div><div class="glossary-definition">Higher timeframe supply/demand zones (1D,12H,3D)</div></div>
+<div class="glossary-item"><div class="glossary-term">1H Zones</div><div class="glossary-definition">Hourly supply or demand zones used for entries and exits</div></div>
+<div class="glossary-item"><div class="glossary-term">CHoCH</div><div class="glossary-definition">Change of Character — shift in market structure</div></div>
+<div class="glossary-item"><div class="glossary-term">Liquidity Grab</div><div class="glossary-definition">Price spike to hunt stops before reversal</div></div>
+</div>
+</div>
+</div>
+</div>
 
-        <div class="section">
-            <div class="section-header" onclick="toggleSection(this)">6. Glossary</div>
-            
-            <div class="section-content">
-                <div class="glossary-grid">
-                <div class="glossary-item">
-                    <div class="glossary-term">EMA (Exponential Moving Average)</div>
-                    <div class="glossary-definition">Weighted moving average giving more importance to recent price data.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">M Zones</div>
-                    <div class="glossary-definition">Higher timeframe (1D, 12H, 3D) supply or demand zones.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">1H Zones</div>
-                    <div class="glossary-definition">Key supply or demand levels formed on the 1-hour chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">15m Zones</div>
-                    <div class="glossary-definition">Internal supply or demand levels on the 15-minute chart.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">LQG (Liquidity Grab)</div>
-                    <div class="glossary-definition">A price move that sweeps stop losses/liquidity before reversing.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">CHoCH (Change of Character)</div>
-                    <div class="glossary-definition">A shift in market structure that signals a potential reversal.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Supply Zone</div>
-                    <div class="glossary-definition">Area where selling pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Demand Zone</div>
-                    <div class="glossary-definition">Area where buying pressure is expected to emerge.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">Drawdown</div>
-                    <div class="glossary-definition">Reduction in account equity from peak to trough.</div>
-                </div>
-                <div class="glossary-item">
-                    <div class="glossary-term">SL (Stop Loss)</div>
-                    <div class="glossary-definition">Predefined level where a trade is closed to prevent further loss.</div>
-                </div>
-            </div>
-        </div>
-    </div>
+<script>
+function toggleSection(header){
+  const content=header.nextElementSibling;
+  content.classList.toggle('hidden');
+  header.classList.toggle('collapsed');
+}
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+}
 
-    <script>
-        function toggleSection(header) {
-            const content = header.nextElementSibling;
-            const isHidden = content.classList.contains('hidden');
-            
-            if (isHidden) {
-                content.classList.remove('hidden');
-                header.classList.remove('collapsed');
-            } else {
-                content.classList.add('hidden');
-                header.classList.add('collapsed');
-            }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-        }
-
-        // Load saved theme
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark');
-        }
-
-        // News feed functionality
-        async function loadNewsEvents() {
-            try {
-                // Simulate API call to economic calendar
-                // In a real implementation, you'd use an actual API like ForexFactory or similar
-                const mockEvents = generateMockEvents();
-                displayNewsEvents(mockEvents);
-            } catch (error) {
-                document.getElementById('news-content').innerHTML = 
-                    '<div class="no-events">Unable to load events at this time</div>';
-            }
-        }
-
-        function generateMockEvents() {
-            const today = new Date();
-            const events = [];
-            const eventTypes = [
-                'Federal Reserve Interest Rate Decision',
-                'ECB Monetary Policy Meeting',
-                'ECB Interest Rate Decision', 
-                'Fed Chair Powell Speech',
-                'ECB President Lagarde Speech',
-                'US Federal Reserve Meeting Minutes'
-            ];
-
-            // Generate events for next 7 days
-            for (let i = 0; i < 7; i++) {
-                const eventDate = new Date(today);
-                eventDate.setDate(today.getDate() + i);
-                
-                // Randomly add 1-2 events per day (30% chance per event type)
-                eventTypes.forEach(eventType => {
-                    if (Math.random() < 0.3) {
-                        events.push({
-                            date: eventDate.toISOString().split('T')[0],
-                            title: eventType,
-                            time: `${8 + Math.floor(Math.random() * 10)}:${Math.random() < 0.5 ? '00' : '30'}`,
-                            impact: Math.random() < 0.6 ? 'High' : 'Medium'
-                        });
-                    }
-                });
-            }
-
-            return events.sort((a, b) => new Date(a.date) - new Date(b.date));
-        }
-
-        function displayNewsEvents(events) {
-            const container = document.getElementById('news-content');
-            
-            if (events.length === 0) {
-                container.innerHTML = '<div class="no-events">No major events scheduled for the next 7 days</div>';
-                return;
-            }
-
-            const eventsHtml = events.map(event => {
-                const eventDate = new Date(event.date);
-                const today = new Date();
-                const isToday = eventDate.toDateString() === today.toDateString();
-                const isTomorrow = eventDate.toDateString() === new Date(today.getTime() + 86400000).toDateString();
-                
-                let dateDisplay;
-                if (isToday) dateDisplay = 'Today';
-                else if (isTomorrow) dateDisplay = 'Tomorrow';
-                else dateDisplay = eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
-                return `
-                    <div class="news-item">
-                        <div class="news-date">${dateDisplay} at ${event.time} UTC</div>
-                        <div class="news-title">${event.title}</div>
-                        <div class="news-impact">Impact: ${event.impact}</div>
-                    </div>
-                `;
-            }).join('');
-
-            container.innerHTML = eventsHtml;
-        }
-
-        // Initialize everything when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadNewsEvents();
-            
-            // Refresh news every 4 hours
-            setInterval(loadNewsEvents, 4 * 60 * 60 * 1000);
-        });
-    </script>
+// Simulated news feed
+const newsFeed=[
+{date:'2025-09-16',title:'US CPI Inflation Hits 3%',impact:'High'},
+{date:'2025-09-17',title:'ECB Interest Rate Decision',impact:'Medium'},
+{date:'2025-09-18',title:'UK GDP Growth Announced',impact:'High'}
+];
+const newsContainer=document.getElementById('news-content');
+newsContainer.innerHTML='';
+if(newsFeed.length===0){newsContainer.innerHTML='<div class="no-events">No events today</div>';}
+else{
+  newsFeed.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='news-item';
+    div.innerHTML=`<div class="news-date">${item.date}</div><div class="news-title">${item.title}</div><div class="news-impact">${item.impact} Impact</div>`;
+    newsContainer.appendChild(div);
+  });
+}
+</script>
 </body>
 </html>
