@@ -463,7 +463,7 @@
 
         @media (min-width: 1024px) {
             .sidebar-container {
-                max-height: 500px;
+                max-height: 600px;
                 overflow-y: auto;
                 position: sticky;
                 top: 2rem;
@@ -741,134 +741,6 @@
                             <div class="table-container">
                                 <table>
                                     <thead>
-                                        <tr>
-                                            <th style="width: 25%;">Entry Type</th>
-                                            <th>Conditions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="entry-type">Long Entry 1</div>
-                                                <small style="color: var(--text-muted);">(Type 1)</small>
-                                            </td>
-                                            <td>
-                                                <div class="conditions">
-                                                    <ul>
-                                                        <li>EMA 3H > EMA 1D</li>
-                                                        <li>1H Demand Zone</li>
-                                                        <li>15m Liquidity Grab from low</li>
-                                                        <li>Price < EMA 3H</li>
-                                                        <li>15m Internal Demand Zone</li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="entry-type">Short Entry 1</div>
-                                                <small style="color: var(--text-muted);">(Type 1)</small>
-                                            </td>
-                                            <td>
-                                                <div class="conditions">
-                                                    <ul>
-                                                        <li>EMA 3H < EMA 1D</li>
-                                                        <li>1H Supply Zone</li>
-                                                        <li>15m Liquidity Grab from high</li>
-                                                        <li>Price > EMA 3H</li>
-                                                        <li>15m Internal Supply Zone</li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="entry-type">Long Entry 2</div>
-                                                <small style="color: var(--text-muted);">(Type 2)</small>
-                                            </td>
-                                            <td>
-                                                <div class="conditions">
-                                                    <ul>
-                                                        <li>EMA 3H < EMA 1D</li>
-                                                        <li>M Zone hit</li>
-                                                        <li>1H Demand Zone or CHoCH Zone</li>
-                                                        <li>15m Liquidity Grab from low</li>
-                                                        <li>15m Demand Zone</li>
-                                                        <li>Price < EMA 3H</li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="entry-type">Short Entry 2</div>
-                                                <small style="color: var(--text-muted);">(Type 2)</small>
-                                            </td>
-                                            <td>
-                                                <div class="conditions">
-                                                    <ul>
-                                                        <li>EMA 3H > EMA 1D</li>
-                                                        <li>M Zone hit</li>
-                                                        <li>1H Supply Zone or CHoCH Zone</li>
-                                                        <li>15m Liquidity Grab from high</li>
-                                                        <li>15m Supply Zone</li>
-                                                        <li>Price > EMA 3H</li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="highlight-box">
-                                <h4>Entry Type Confirmation Methods:</h4>
-                                <ul>
-                                    <li>Red 15m Candle</li>
-                                    <li>2m CHoCH Pattern</li>
-                                    <li>2m First Pullback after CHoCH</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section">
-                        <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
-                            2. Additional Rules
-                        </button>
-                        
-                        <div class="section-content">
-                            <div class="table-container">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 25%;">Category</th>
-                                            <th>Rules</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Zone Validity & Usage</strong></td>
-                                            <td>
-                                                <ul>
-                                                    <li>M Zone valid until 2 taps or broken</li>
-                                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
-                                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
-                                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
-                                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Liquidity Grab Rules</strong></td>
-                                            <td>
-                                                <ul>
-                                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
-                                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
-                                                    <li>15m Liquidity Grab required for all entries</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td><strong>Stop Loss & Exit Rules</strong></td>
                                             <td>
@@ -1776,46 +1648,46 @@ if timeframe.period=="D" and timeframe.change("W")
         function generateStaticEvents() {
             return new Promise((resolve) => {
                 setTimeout(() => {
+                    const now = new Date();
                     const events = [
                         {
-                            date: '2025-09-18',
+                            date: new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                             title: 'Federal Reserve Interest Rate Decision',
                             time: '14:00',
                             impact: 'High'
                         },
                         {
-                            date: '2025-09-18',
+                            date: new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                             title: 'Fed Chair Powell Press Conference',
                             time: '14:30',
                             impact: 'High'
                         },
                         {
-                            date: '2025-10-15',
-                            title: 'US CPI (Consumer Price Index) - September',
+                            date: new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                            title: 'US CPI (Consumer Price Index)',
                             time: '08:30',
                             impact: 'High'
                         },
                         {
-                            date: '2025-10-24',
+                            date: new Date(now.getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                             title: 'ECB Monetary Policy Meeting',
                             time: '12:15',
                             impact: 'High'
                         },
                         {
-                            date: '2025-10-24',
+                            date: new Date(now.getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                             title: 'ECB President Lagarde Press Conference',
                             time: '12:45',
                             impact: 'High'
                         },
                         {
-                            date: '2025-10-28',
+                            date: new Date(now.getTime() + (14 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                             title: 'Federal Reserve Interest Rate Decision',
                             time: '14:00',
                             impact: 'High'
                         }
                     ];
                     
-                    const now = new Date();
                     const thirtyDaysFromNow = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000));
                     
                     const filteredEvents = events
@@ -1996,7 +1868,6 @@ if timeframe.period=="D" and timeframe.change("W")
                     .catch(() => { console.warn('Prices update failed'); });
             };
             
-            setInterval(updateNews, 4 * 60 * 60 * 1000);
             setInterval(updatePrices, 60 * 60 * 1000);
         });
 
@@ -2020,4 +1891,133 @@ if timeframe.period=="D" and timeframe.change("W")
         });
     </script>
 </body>
-</html>
+</html>(updateNews, 4 * 60 * 60 * 1000);
+            setInterval
+                                            <th style="width: 25%;">Entry Type</th>
+                                            <th>Conditions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="entry-type">Long Entry 1</div>
+                                                <small style="color: var(--text-muted);">(Type 1)</small>
+                                            </td>
+                                            <td>
+                                                <div class="conditions">
+                                                    <ul>
+                                                        <li>EMA 3H > EMA 1D</li>
+                                                        <li>1H Demand Zone</li>
+                                                        <li>15m Liquidity Grab from low</li>
+                                                        <li>Price < EMA 3H</li>
+                                                        <li>15m Internal Demand Zone</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="entry-type">Short Entry 1</div>
+                                                <small style="color: var(--text-muted);">(Type 1)</small>
+                                            </td>
+                                            <td>
+                                                <div class="conditions">
+                                                    <ul>
+                                                        <li>EMA 3H < EMA 1D</li>
+                                                        <li>1H Supply Zone</li>
+                                                        <li>15m Liquidity Grab from high</li>
+                                                        <li>Price > EMA 3H</li>
+                                                        <li>15m Internal Supply Zone</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="entry-type">Long Entry 2</div>
+                                                <small style="color: var(--text-muted);">(Type 2)</small>
+                                            </td>
+                                            <td>
+                                                <div class="conditions">
+                                                    <ul>
+                                                        <li>EMA 3H < EMA 1D</li>
+                                                        <li>M Zone hit</li>
+                                                        <li>1H Demand Zone or CHoCH Zone</li>
+                                                        <li>15m Liquidity Grab from low</li>
+                                                        <li>15m Demand Zone</li>
+                                                        <li>Price < EMA 3H</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="entry-type">Short Entry 2</div>
+                                                <small style="color: var(--text-muted);">(Type 2)</small>
+                                            </td>
+                                            <td>
+                                                <div class="conditions">
+                                                    <ul>
+                                                        <li>EMA 3H > EMA 1D</li>
+                                                        <li>M Zone hit</li>
+                                                        <li>1H Supply Zone or CHoCH Zone</li>
+                                                        <li>15m Liquidity Grab from high</li>
+                                                        <li>15m Supply Zone</li>
+                                                        <li>Price > EMA 3H</li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="highlight-box">
+                                <h4>Entry Type Confirmation Methods:</h4>
+                                <ul>
+                                    <li>Red 15m Candle</li>
+                                    <li>2m CHoCH Pattern</li>
+                                    <li>2m First Pullback after CHoCH</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
+                            2. Additional Rules
+                        </button>
+                        
+                        <div class="section-content">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25%;">Category</th>
+                                            <th>Rules</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Zone Validity & Usage</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>M Zone valid until 2 taps or broken</li>
+                                                    <li>M Zone Hit = switch from Type 1 → Type 1 or Type 2 until EMA cross</li>
+                                                    <li>After EMA cross = revert back to only Type 1 (unless already in M Zone, then Type 1 or 2 remain valid)</li>
+                                                    <li>Late Entry allowed if price is still in / returns to original 15m Supply or Demand Zone</li>
+                                                    <li>Late Entry not allowed if 1H Zone has been hit in between</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Liquidity Grab Rules</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Liquidity Grab can be from high, low, or stagnation</li>
+                                                    <li>Liquidity grabbed high must be within 6 pips of entry high</li>
+                                                    <li>15m Liquidity Grab required for all entries</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
