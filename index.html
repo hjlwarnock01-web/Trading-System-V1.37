@@ -1264,34 +1264,52 @@ indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees
         function generateStaticEvents() {
             return new Promise((resolve) => {
                 setTimeout(() => {
+                    const today = new Date();
                     const events = [
                         {
-                            date: '2025-09-18',
+                            date: today.toISOString().split('T')[0],
                             title: 'Federal Reserve Interest Rate Decision',
                             time: '14:00',
                             impact: 'High'
                         },
                         {
-                            date: '2025-09-18',
+                            date: today.toISOString().split('T')[0],
                             title: 'Fed Chair Powell Press Conference',
                             time: '14:30',
                             impact: 'High'
                         },
                         {
-                            date: '2025-10-15',
-                            title: 'US CPI (Consumer Price Index) - September',
+                            date: new Date(today.getTime() + (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                            title: 'US CPI (Consumer Price Index)',
                             time: '08:30',
                             impact: 'High'
+                        },
+                        {
+                            date: new Date(today.getTime() + (2 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                            title: 'ECB Monetary Policy Meeting',
+                            time: '12:15',
+                            impact: 'High'
+                        },
+                        {
+                            date: new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                            title: 'US Non-Farm Payrolls',
+                            time: '08:30',
+                            impact: 'High'
+                        },
+                        {
+                            date: new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                            title: 'US GDP Quarterly Data',
+                            time: '08:30',
+                            impact: 'Medium'
                         }
                     ];
                     
-                    const now = new Date();
-                    const thirtyDaysFromNow = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000));
+                    const thirtyDaysFromNow = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000));
                     
                     const filteredEvents = events
                         .filter(event => {
                             const eventDate = new Date(event.date);
-                            return eventDate >= now && eventDate <= thirtyDaysFromNow;
+                            return eventDate >= today && eventDate <= thirtyDaysFromNow;
                         })
                         .sort((a, b) => new Date(a.date) - new Date(b.date));
                     
