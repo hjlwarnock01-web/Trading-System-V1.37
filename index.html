@@ -508,11 +508,10 @@
                     
                     <!-- Watch Status Widget - Outside the scrollable container -->
                     <div id="trading-watch">
-                        <h2>Watch Status: <span id="status">Nobody Watching</span></h2>
+                        <h2>Trading Watch:</h2>
                         <div class="watch-buttons">
-                            <button class="watch-btn" onclick="setWatcher('You')">I'm Watching</button>
-                            <button class="watch-btn partner" onclick="setWatcher('Partner')">Partner Watching</button>
-                            <button class="watch-btn stop" onclick="clearWatcher()">Stop Watching</button>
+                            <button class="watch-btn" id="flo-btn" onclick="toggleFlo()">Flo's Offline</button>
+                            <button class="watch-btn partner" id="harvey-btn" onclick="toggleHarvey()">Harvey's Offline</button>
                         </div>
                     </div>
                 </div>
@@ -868,23 +867,41 @@
         const db = firebase.database();
         const watcherRef = db.ref('watchers');
         
-        function setWatcher(person) {
-            watcherRef.child(person).set(true);
+        function toggleFlo() {
+            watcherRef.child('Flo').once('value', (snapshot) => {
+                const currentStatus = snapshot.val() || false;
+                watcherRef.child('Flo').set(!currentStatus);
+            });
         }
-        function clearWatcher() {
-            watcherRef.child('You').set(false);
-            watcherRef.child('Partner').set(false);
+        
+        function toggleHarvey() {
+            watcherRef.child('Harvey').once('value', (snapshot) => {
+                const currentStatus = snapshot.val() || false;
+                watcherRef.child('Harvey').set(!currentStatus);
+            });
         }
+        
         watcherRef.on('value', (snapshot) => {
             const data = snapshot.val() || {};
-            const you = data['You'] || false;
-            const partner = data['Partner'] || false;
-            let statusText = '';
-            if (you && partner) statusText = "Both Watching";
-            else if (you) statusText = "You Watching";
-            else if (partner) statusText = "Partner Watching";
-            else statusText = "Nobody Watching";
-            document.getElementById('status').innerText = statusText;
+            const floOnline = data['Flo'] || false;
+            const harveyOnline = data['Harvey'] || false;
+            
+            const floBtn = document.getElementById('flo-btn');
+            const harveyBtn = document.getElementById('harvey-btn');
+            
+            if (floBtn) {
+                floBtn.textContent = floOnline ? "Flo's Online" : "Flo's Offline";
+                floBtn.style.background = floOnline ? 
+                    'linear-gradient(135deg, var(--accent-green) 0%, #047857 100%)' : 
+                    'linear-gradient(135deg, var(--accent-red) 0%, #991b1b 100%)';
+            }
+            
+            if (harveyBtn) {
+                harveyBtn.textContent = harveyOnline ? "Harvey's Online" : "Harvey's Offline";
+                harveyBtn.style.background = harveyOnline ? 
+                    'linear-gradient(135deg, var(--accent-green) 0%, #047857 100%)' : 
+                    'linear-gradient(135deg, var(--accent-red) 0%, #991b1b 100%)';
+            }
         });
 
         // Theme management
