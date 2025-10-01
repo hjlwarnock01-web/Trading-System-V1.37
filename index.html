@@ -500,6 +500,13 @@
                             <h3>Market Events Alert</h3>
                         </div>
                         
+                        <div id="news-content" role="region" aria-label="Market events">
+                            <div class="loading">
+                                <span class="loading-spinner"></span>
+                                Loading economic events...
+                            </div>
+                        </div>
+                        
                         <!-- Watch Status Widget -->
                         <div id="trading-watch">
                             <h2>Watch Status: <span id="status">Nobody Watching</span></h2>
@@ -507,13 +514,6 @@
                                 <button class="watch-btn" onclick="setWatcher('You')">I'm Watching</button>
                                 <button class="watch-btn partner" onclick="setWatcher('Partner')">Partner Watching</button>
                                 <button class="watch-btn stop" onclick="clearWatcher()">Stop Watching</button>
-                            </div>
-                        </div>
-                        
-                        <div id="news-content" role="region" aria-label="Market events">
-                            <div class="loading">
-                                <span class="loading-spinner"></span>
-                                Loading economic events...
                             </div>
                         </div>
                     </div>
