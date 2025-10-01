@@ -886,13 +886,6 @@
             else statusText = "Nobody Watching";
             document.getElementById('status').innerText = statusText;
         });
-        const onlineRef = db.ref('.info/connected');
-        onlineRef.on('value', (snap) => {
-            if (snap.val() === true) {
-                watcherRef.child('You').onDisconnect().set(false);
-                watcherRef.child('Partner').onDisconnect().set(false);
-            }
-        });
 
         // Theme management
         const THEME_KEY = 'trading-dashboard-theme';
