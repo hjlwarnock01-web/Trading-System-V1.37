@@ -510,8 +510,8 @@
                     <div id="trading-watch">
                         <h2>Trading Watch:</h2>
                         <div class="watch-buttons">
-                            <button class="watch-btn" id="flo-btn" onclick="toggleFlo()">Flo's Offline</button>
-                            <button class="watch-btn partner" id="harvey-btn" onclick="toggleHarvey()">Harvey's Offline</button>
+                            <button class="watch-btn" id="flo-btn" onclick="toggleFlo()">Flo Off Chart</button>
+                            <button class="watch-btn partner" id="harvey-btn" onclick="toggleHarvey()">Harvey Off Chart</button>
                         </div>
                     </div>
                 </div>
@@ -890,14 +890,14 @@
             const harveyBtn = document.getElementById('harvey-btn');
             
             if (floBtn) {
-                floBtn.textContent = floOnline ? "Flo's Online" : "Flo's Offline";
+                floBtn.textContent = floOnline ? "Flo On Chart" : "Flo Off Chart";
                 floBtn.style.background = floOnline ? 
                     'linear-gradient(135deg, var(--accent-green) 0%, #047857 100%)' : 
                     'linear-gradient(135deg, var(--accent-red) 0%, #991b1b 100%)';
             }
             
             if (harveyBtn) {
-                harveyBtn.textContent = harveyOnline ? "Harvey's Online" : "Harvey's Offline";
+                harveyBtn.textContent = harveyOnline ? "Harvey On Chart" : "Harvey Off Chart";
                 harveyBtn.style.background = harveyOnline ? 
                     'linear-gradient(135deg, var(--accent-green) 0%, #047857 100%)' : 
                     'linear-gradient(135deg, var(--accent-red) 0%, #991b1b 100%)';
