@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light theme colors */
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
             --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -25,9 +24,7 @@
             --shadow-primary: rgba(0, 0, 0, 0.05);
             --shadow-secondary: rgba(0, 0, 0, 0.08);
         }
-
         [data-theme="dark"] {
-            /* Dark theme colors */
             --bg-primary: #1e293b;
             --bg-secondary: #374151;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -38,13 +35,7 @@
             --shadow-primary: rgba(0, 0, 0, 0.3);
             --shadow-secondary: rgba(0, 0, 0, 0.25);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
@@ -54,7 +45,6 @@
             transition: all 0.3s ease;
             min-height: 100vh;
         }
-
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -63,37 +53,18 @@
             min-height: 100vh;
             box-shadow: 0 0 30px var(--shadow-primary);
         }
-
-        /* Layout Structure */
-        .page-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
+        .page-wrapper { display: flex; flex-direction: column; gap: 1.5rem; }
         .content-grid {
             display: grid;
             gap: 1.5rem;
             grid-template-columns: 1fr;
-            grid-template-areas: 
-                "news"
-                "prices" 
-                "main";
+            grid-template-areas: "news" "prices" "main";
         }
-
         .news-sidebar { grid-area: news; }
         .prices-sidebar { grid-area: prices; }
         .main-sections { grid-area: main; }
-
-        /* Desktop Layout */
         @media (min-width: 1024px) {
-            .container {
-                max-width: 1400px;
-                padding: 3rem;
-                margin: 2rem auto;
-                border-radius: 12px;
-            }
-
+            .container { max-width: 1400px; padding: 3rem; margin: 2rem auto; border-radius: 12px; }
             .content-grid {
                 grid-template-columns: 280px 1fr 280px;
                 grid-template-areas: "news main prices";
@@ -101,8 +72,6 @@
                 align-items: start;
             }
         }
-
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -113,7 +82,6 @@
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
             position: relative;
         }
-
         .header h1 {
             font-size: clamp(2rem, 4vw, 2.5rem);
             font-weight: 700;
@@ -121,7 +89,6 @@
             letter-spacing: -0.025em;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         .header .version {
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.9);
@@ -133,8 +100,6 @@
             display: inline-block;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        /* Theme Toggle */
         .theme-toggle {
             position: absolute;
             top: 1rem;
@@ -147,24 +112,9 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
-
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.05);
-        }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-            display: block;
-        }
-
-        /* Section Styles */
-        .section {
-            margin-bottom: 1rem;
-        }
-
+        .theme-toggle:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.05); }
+        .theme-toggle svg { width: 20px; height: 20px; fill: white; display: block; }
+        .section { margin-bottom: 1rem; }
         .section-header {
             background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
             color: white;
@@ -182,36 +132,11 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .section-header:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
-        }
-
-        .section-header::after {
-            content: '▼';
-            font-size: 0.9rem;
-            transition: transform 0.3s ease;
-        }
-
-        .section-header.collapsed::after {
-            transform: rotate(-90deg);
-        }
-
-        .section-content {
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .section-content.hidden {
-            max-height: 0;
-            margin-top: 0;
-            opacity: 0;
-        }
-
-        /* Table Styles */
+        .section-header:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25); }
+        .section-header::after { content: '▼'; font-size: 0.9rem; transition: transform 0.3s ease; }
+        .section-header.collapsed::after { transform: rotate(-90deg); }
+        .section-content { margin-top: 1.5rem; margin-bottom: 1.5rem; overflow: hidden; transition: all 0.3s ease; }
+        .section-content.hidden { max-height: 0; margin-top: 0; opacity: 0; }
         .table-container {
             overflow-x: auto;
             margin-bottom: 1.5rem;
@@ -219,13 +144,7 @@
             box-shadow: 0 4px 20px var(--shadow-secondary);
             border: 1px solid var(--border-color);
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--bg-primary);
-        }
-
+        table { width: 100%; border-collapse: collapse; background: var(--bg-primary); }
         th {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, #f1f5f9 100%);
             color: var(--text-secondary);
@@ -237,51 +156,19 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        td {
-            padding: 1.2rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: top;
-        }
-
-        tr:hover {
-            background: var(--bg-secondary);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .entry-type {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .conditions {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* Lists */
-        ul {
-            padding-left: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        /* Risk Management Grid */
+        td { padding: 1.2rem 1rem; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        tr:hover { background: var(--bg-secondary); }
+        tr:last-child td { border-bottom: none; }
+        .entry-type { font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .conditions { color: var(--text-secondary); line-height: 1.7; }
+        ul { padding-left: 1.25rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; color: var(--text-secondary); }
         .risk-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-
         .risk-item {
             background: var(--bg-secondary);
             padding: 1.25rem;
@@ -289,24 +176,9 @@
             border-left: 4px solid var(--accent-green);
             box-shadow: 0 1px 3px 0 var(--shadow-primary);
         }
-
-        .risk-label {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .risk-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--accent-green);
-        }
-
-        /* Workflow Steps */
-        .workflow {
-            counter-reset: step-counter;
-        }
-
+        .risk-label { font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .risk-value { font-size: 1.1rem; font-weight: 500; color: var(--accent-green); }
+        .workflow { counter-reset: step-counter; }
         .workflow-step {
             counter-increment: step-counter;
             background: var(--bg-secondary);
@@ -317,7 +189,6 @@
             position: relative;
             padding-left: 3rem;
         }
-
         .workflow-step::before {
             content: counter(step-counter);
             position: absolute;
@@ -334,44 +205,17 @@
             font-weight: 600;
             font-size: 0.85rem;
         }
-
-        /* Glossary */
-        .glossary-grid {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
+        .glossary-grid { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
         .glossary-item {
             background: var(--bg-secondary);
             padding: 1rem;
             border-radius: 8px;
             border-left: 4px solid #8b5cf6;
         }
-
-        .glossary-term {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .glossary-definition {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Pine Script Dropdown Styles */
-        .indicator-selector {
-            margin-bottom: 1rem;
-        }
-
-        .indicator-selector label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
+        .glossary-term { font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+        .glossary-definition { color: var(--text-secondary); line-height: 1.6; }
+        .indicator-selector { margin-bottom: 1rem; }
+        .indicator-selector label { font-weight: 600; display: block; margin-bottom: 0.5rem; color: var(--text-primary); }
         .indicator-selector select {
             padding: 0.75rem;
             border: 2px solid var(--border-color);
@@ -384,13 +228,11 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
-
         .indicator-selector select:focus {
             outline: none;
             border-color: #8b5cf6;
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
-
         .indicator-description {
             margin: 1rem 0;
             padding: 1rem;
@@ -401,8 +243,6 @@
             border-left: 4px solid #8b5cf6;
             line-height: 1.6;
         }
-
-        /* Copy Button */
         .copy-btn {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             color: white;
@@ -416,18 +256,12 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
         }
-
         .copy-btn:hover {
             background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
-
-        .copy-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Highlights */
+        .copy-btn:active { transform: translateY(0); }
         .highlight-box {
             background: #fef3c7;
             border: 1px solid var(--accent-yellow);
@@ -435,23 +269,9 @@
             border-radius: 8px;
             margin: 1rem 0;
         }
-
-        .highlight-box h4 {
-            color: #92400e;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        [data-theme="dark"] .highlight-box {
-            background: #451a03;
-            color: #fde68a;
-        }
-
-        [data-theme="dark"] .highlight-box h4 {
-            color: #fbbf24;
-        }
-
-        /* NEW RULES HIGHLIGHT */
+        .highlight-box h4 { color: #92400e; font-weight: 600; margin-bottom: 0.5rem; }
+        [data-theme="dark"] .highlight-box { background: #451a03; color: #fde68a; }
+        [data-theme="dark"] .highlight-box h4 { color: #fbbf24; }
         .new-rules {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid var(--accent-green);
@@ -459,13 +279,7 @@
             border-radius: 8px;
             margin: 1rem 0;
         }
-
-        .new-rules h4 {
-            color: var(--accent-green);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
+        .new-rules h4 { color: var(--accent-green); font-weight: 600; margin-bottom: 0.5rem; }
         .new-rule-item {
             background: var(--bg-secondary);
             padding: 0.75rem;
@@ -473,8 +287,6 @@
             border-radius: 6px;
             border-left: 3px solid var(--accent-green);
         }
-
-        /* Sidebar Styles */
         .sidebar-container {
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
@@ -483,7 +295,6 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 20px var(--shadow-secondary);
         }
-
         @media (min-width: 1024px) {
             .sidebar-container {
                 max-height: 500px;
@@ -492,113 +303,102 @@
                 top: 2rem;
                 margin-bottom: 0;
             }
-
-            .sidebar-container::-webkit-scrollbar {
-                width: 6px;
-            }
-
-            .sidebar-container::-webkit-scrollbar-track {
-                background: var(--bg-secondary);
-                border-radius: 3px;
-            }
-
-            .sidebar-container::-webkit-scrollbar-thumb {
-                background: var(--border-color);
-                border-radius: 3px;
-            }
+            .sidebar-container::-webkit-scrollbar { width: 6px; }
+            .sidebar-container::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 3px; }
+            .sidebar-container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
         }
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .sidebar-header h3 {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin: 0 0 0 0.5rem;
-        }
-
-        .sidebar-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* News Feed */
-        .news-header h3 {
-            color: var(--accent-red);
-        }
-
-        .news-icon {
-            fill: var(--accent-red);
-        }
-
+        .sidebar-header { display: flex; align-items: center; margin-bottom: 1rem; }
+        .sidebar-header h3 { font-weight: 600; font-size: 1.1rem; margin: 0 0 0 0.5rem; }
+        .sidebar-icon { width: 20px; height: 20px; }
+        .news-header h3 { color: var(--accent-red); }
+        .news-icon { fill: var(--accent-red); }
         .news-item {
             padding: 0.5rem;
             border-left: 3px solid;
             margin-bottom: 0.5rem;
             border-radius: 6px;
         }
-
         .news-item.high-impact {
             border-left-color: var(--accent-red);
             background: rgba(220, 38, 38, 0.1);
         }
-
         .news-item.medium-impact {
             border-left-color: var(--accent-yellow);
             background: rgba(245, 158, 11, 0.1);
         }
-
-        .news-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .news-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0.25rem 0;
-        }
-
+        .news-date { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+        .news-title { font-weight: 600; color: var(--text-primary); margin: 0.25rem 0; }
         .news-impact {
             font-size: 0.8rem;
             color: var(--accent-red);
             font-weight: 600;
             text-transform: uppercase;
         }
-
         .no-events, .loading {
             text-align: center;
             color: var(--text-muted);
             font-style: italic;
             padding: 1rem;
         }
-
-        /* Forex Prices */
-        .prices-header h3 {
-            color: var(--accent-green);
+        /* Watch Status Styles */
+        #trading-watch {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--border-color);
         }
-
-        .prices-icon {
-            fill: var(--accent-green);
+        #trading-watch h2 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
         }
-
+        #status { color: var(--accent-blue); font-weight: 700; }
+        .watch-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        .watch-btn {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1e40af 100%);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+        }
+        .watch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        .watch-btn:active { transform: translateY(0); }
+        .watch-btn.partner {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #047857 100%);
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+        }
+        .watch-btn.partner:hover { box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3); }
+        .watch-btn.stop {
+            background: linear-gradient(135deg, var(--accent-red) 0%, #991b1b 100%);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+        }
+        .watch-btn.stop:hover { box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); }
+        .prices-header h3 { color: var(--accent-green); }
+        .prices-icon { fill: var(--accent-green); }
         .prices-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 0.5rem;
         }
-
         @media (min-width: 1024px) {
-            .prices-content {
-                display: block;
-            }
+            .prices-content { display: block; }
         }
-
         .price-item {
             display: flex;
             justify-content: space-between;
@@ -608,44 +408,16 @@
             width: 48%;
             margin-bottom: 0.75rem;
         }
-
         @media (min-width: 1024px) {
-            .price-item {
-                width: 100%;
-            }
+            .price-item { width: 100%; }
         }
-
-        .price-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .pair-name {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .price-details {
-            text-align: right;
-        }
-
-        .price-value {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .price-change {
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-top: 0.1rem;
-        }
-
+        .price-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .pair-name { font-weight: 600; color: var(--text-primary); font-size: 0.9rem; }
+        .price-details { text-align: right; }
+        .price-value { font-weight: 600; color: var(--text-primary); font-size: 0.9rem; }
+        .price-change { font-size: 0.75rem; font-weight: 500; margin-top: 0.1rem; }
         .price-up { color: var(--accent-green); }
         .price-down { color: var(--accent-red); }
-
-        /* Error States */
         .error-state {
             background: rgba(220, 38, 38, 0.1);
             color: var(--accent-red);
@@ -654,8 +426,6 @@
             text-align: center;
             font-size: 0.9rem;
         }
-
-        /* Loading Animation */
         .loading-spinner {
             display: inline-block;
             width: 20px;
@@ -665,23 +435,13 @@
             border-top-color: var(--accent-blue);
             animation: spin 1s ease-in-out infinite;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* Print Styles */
         @media print {
             body { font-size: 12px; }
-            .container { 
-                padding: 0.5in; 
-                box-shadow: none;
-                max-width: none;
-            }
-            .section { 
-                break-inside: avoid; 
-                page-break-inside: avoid; 
-            }
+            .container { padding: 0.5in; box-shadow: none; max-width: none; }
+            .section { break-inside: avoid; page-break-inside: avoid; }
             .table-container { break-inside: avoid; }
             .theme-toggle, .sidebar-container { display: none; }
             .content-grid {
@@ -689,8 +449,6 @@
                 grid-template-areas: "main";
             }
         }
-
-        /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
@@ -698,15 +456,12 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
-        /* Focus styles for keyboard navigation */
         .section-header:focus,
         .theme-toggle:focus,
         .copy-btn:focus {
             outline: 2px solid var(--accent-blue);
             outline-offset: 2px;
         }
-
         .section-header:focus {
             outline-color: rgba(255, 255, 255, 0.5);
         }
@@ -734,7 +489,7 @@
             </div>
 
             <div class="content-grid">
-                <!-- News Sidebar -->
+                <!-- News Sidebar with Watch Status -->
                 <div class="news-sidebar">
                     <div class="sidebar-container">
                         <div class="sidebar-header">
@@ -744,6 +499,17 @@
                             </svg>
                             <h3>Market Events Alert</h3>
                         </div>
+                        
+                        <!-- Watch Status Widget -->
+                        <div id="trading-watch">
+                            <h2>Watch Status: <span id="status">Nobody Watching</span></h2>
+                            <div class="watch-buttons">
+                                <button class="watch-btn" onclick="setWatcher('You')">I'm Watching</button>
+                                <button class="watch-btn partner" onclick="setWatcher('Partner')">Partner Watching</button>
+                                <button class="watch-btn stop" onclick="clearWatcher()">Stop Watching</button>
+                            </div>
+                        </div>
+                        
                         <div id="news-content" role="region" aria-label="Market events">
                             <div class="loading">
                                 <span class="loading-spinner"></span>
@@ -759,7 +525,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             1. Entry Rules
                         </button>
-                        
                         <div class="section-content">
                             <div class="table-container">
                                 <table>
@@ -843,7 +608,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                             <div class="highlight-box">
                                 <h4>Entry Type Confirmation Methods:</h4>
                                 <ul>
@@ -859,7 +623,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             2. Additional Rules
                         </button>
-                        
                         <div class="section-content">
                             <div class="table-container">
                                 <table>
@@ -942,7 +705,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             3. Risk Management Framework
                         </button>
-                        
                         <div class="section-content">
                             <div class="risk-grid">
                                 <div class="risk-item">
@@ -969,7 +731,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             4. Usage Guidelines (Workflow)
                         </button>
-                        
                         <div class="section-content">
                             <div class="workflow">
                                 <div class="workflow-step">Mark M Zones (1D, 12H, 3D)</div>
@@ -987,7 +748,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             5. Performance & Expectations
                         </button>
-                        
                         <div class="section-content">
                             <div class="highlight-box">
                                 <ul>
@@ -1003,7 +763,6 @@
                         <button class="section-header" onclick="toggleSection(this)" aria-expanded="true">
                             6. Glossary & Pine Script Tools
                         </button>
-                        
                         <div class="section-content">
                             <div class="glossary-grid">
                                 <div class="glossary-item">
@@ -1092,28 +851,67 @@
         </div>
     </div>
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <script>
+        // Firebase Configuration and Watch Status
+        const firebaseConfig = {
+            apiKey: "AIzaSyAMtdz8CERlXl8WSktbRmnE6Yxy4o2QI5Q",
+            authDomain: "onlineofflineswitch.firebaseapp.com",
+            databaseURL: "https://onlineofflineswitch-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "onlineofflineswitch",
+            storageBucket: "onlineofflineswitch.firebasestorage.app",
+            messagingSenderId: "938580450565",
+            appId: "1:938580450565:web:e1d96f2ab16c43f53bab6c"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const watcherRef = db.ref('watchers');
+        
+        function setWatcher(person) {
+            watcherRef.child(person).set(true);
+        }
+        function clearWatcher() {
+            watcherRef.child('You').set(false);
+            watcherRef.child('Partner').set(false);
+        }
+        watcherRef.on('value', (snapshot) => {
+            const data = snapshot.val() || {};
+            const you = data['You'] || false;
+            const partner = data['Partner'] || false;
+            let statusText = '';
+            if (you && partner) statusText = "Both Watching";
+            else if (you) statusText = "You Watching";
+            else if (partner) statusText = "Partner Watching";
+            else statusText = "Nobody Watching";
+            document.getElementById('status').innerText = statusText;
+        });
+        const onlineRef = db.ref('.info/connected');
+        onlineRef.on('value', (snap) => {
+            if (snap.val() === true) {
+                watcherRef.child('You').onDisconnect().set(false);
+                watcherRef.child('Partner').onDisconnect().set(false);
+            }
+        });
+
         // Theme management
         const THEME_KEY = 'trading-dashboard-theme';
-        
         function initializeTheme() {
             const savedTheme = localStorage.getItem(THEME_KEY);
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-            
             document.documentElement.setAttribute('data-theme', theme);
             updateThemeIcon(theme);
         }
-
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem(THEME_KEY, newTheme);
             updateThemeIcon(newTheme);
         }
-
         function updateThemeIcon(theme) {
             const icon = document.querySelector('.theme-icon');
             if (theme === 'dark') {
@@ -1132,12 +930,9 @@
                 `;
             }
         }
-
-        // Section collapse/expand
         function toggleSection(header) {
             const content = header.nextElementSibling;
             const isHidden = content.classList.contains('hidden');
-            
             if (isHidden) {
                 content.classList.remove('hidden');
                 header.classList.remove('collapsed');
@@ -1148,39 +943,29 @@
                 header.setAttribute('aria-expanded', 'false');
             }
         }
-
-        // Indicator dropdown handling
         function handleIndicatorSelect() {
             const select = document.getElementById('indicator-select');
             const descriptionDiv = document.getElementById('indicator-description');
             const copyBtn = document.getElementById('copy-indicator-btn');
-            
             if (!select || !descriptionDiv || !copyBtn) return;
-            
             const selectedValue = select.value;
-            
             if (!selectedValue) {
                 descriptionDiv.textContent = 'Select an indicator above to view its description and copy the code.';
                 copyBtn.style.display = 'none';
                 return;
             }
-            
             const descriptions = {
                 'market-structure': 'Advanced multi-timeframe BoS/ChoCH detection indicator (MS MK3.5 SD) that tracks market structure changes across current, higher, and highest available timeframes with customizable start dates and trend tables.',
                 'session-time': 'ChrisMoody\'s time-based background highlights script that allows up to 6 customizable trading sessions with individual colors and timing controls for different market periods.',
                 'news-times': 'Live Economic Calendar by toodegrees - Complete Forex Factory news integration with customizable timezones, impact filters (High/Medium/Low/Holiday), currency selection, and both chart labels and table displays. Includes advanced news filtering and historical data management.'
             };
-            
             descriptionDiv.textContent = descriptions[selectedValue] || 'Description not available.';
             copyBtn.style.display = 'inline-block';
         }
-
         function copySelectedIndicator() {
             const select = document.getElementById('indicator-select');
             if (!select || !select.value) return;
-            
             const code = getIndicatorCode(select.value);
-            
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(code).then(() => {
                     showCopyNotification();
@@ -1191,7 +976,6 @@
                 fallbackCopy(code);
             }
         }
-
         function fallbackCopy(text) {
             const textArea = document.createElement('textarea');
             textArea.value = text;
@@ -1203,52 +987,21 @@
             document.body.removeChild(textArea);
             showCopyNotification();
         }
-
         function getIndicatorCode(indicatorId) {
             const codes = {
-                'market-structure': `// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
-//@version=6
-indicator('MS MK3.5 SD', overlay = true, max_lines_count = 500, max_labels_count = 500)
-// Market Structure Indicator with multi-timeframe BoS/ChoCH detection
-// [Complete code would be here - truncated for display]`,
-
-                'session-time': `//Created By ChrisMoody on 9-14-2014 To plot Background Highlights for Recurring Times
-study(title="CM_TimeBased_Vertical Lines", shorttitle="CM_TimeBased_Lines",overlay=true)
-// [Complete session time code would be here]`,
-                
-                'news-times': `// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
-// © toodegrees
-//@version=5
-indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees]", overlay=true)
-// [Complete news calendar code would be here]`
+                'market-structure': `// Market Structure Indicator Code`,
+                'session-time': `// Session Time Script Code`,
+                'news-times': `// News Times Code`
             };
-            
             return codes[indicatorId] || '// Indicator code not found';
         }
-
         function showCopyNotification() {
             const notification = document.createElement('div');
-            notification.className = 'copy-notification';
             notification.textContent = '✅ Pine Script code copied to clipboard!';
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                z-index: 10000;
-                font-size: 0.9rem;
-                font-weight: 600;
-                box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
-            `;
-            
+            notification.style.cssText = `position: fixed; top: 20px; right: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1rem 1.5rem; border-radius: 8px; z-index: 10000; font-size: 0.9rem; font-weight: 600; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);`;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 3000);
         }
-
-        // News feed functionality
         async function loadNewsEvents() {
             try {
                 const events = await generateStaticEvents();
@@ -1260,93 +1013,47 @@ indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees
                 }
             }
         }
-
         function generateStaticEvents() {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const today = new Date();
                     const events = [
-                        {
-                            date: today.toISOString().split('T')[0],
-                            title: 'Federal Reserve Interest Rate Decision',
-                            time: '14:00',
-                            impact: 'High'
-                        },
-                        {
-                            date: today.toISOString().split('T')[0],
-                            title: 'Fed Chair Powell Press Conference',
-                            time: '14:30',
-                            impact: 'High'
-                        },
-                        {
-                            date: new Date(today.getTime() + (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-                            title: 'US CPI (Consumer Price Index)',
-                            time: '08:30',
-                            impact: 'High'
-                        },
-                        {
-                            date: new Date(today.getTime() + (2 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-                            title: 'ECB Monetary Policy Meeting',
-                            time: '12:15',
-                            impact: 'High'
-                        },
-                        {
-                            date: new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-                            title: 'US Non-Farm Payrolls',
-                            time: '08:30',
-                            impact: 'High'
-                        },
-                        {
-                            date: new Date(today.getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-                            title: 'US GDP Quarterly Data',
-                            time: '08:30',
-                            impact: 'Medium'
-                        }
+                        { date: today.toISOString().split('T')[0], title: 'Federal Reserve Interest Rate Decision', time: '14:00', impact: 'High' },
+                        { date: today.toISOString().split('T')[0], title: 'Fed Chair Powell Press Conference', time: '14:30', impact: 'High' },
+                        { date: new Date(today.getTime() + 86400000).toISOString().split('T')[0], title: 'US CPI (Consumer Price Index)', time: '08:30', impact: 'High' },
+                        { date: new Date(today.getTime() + 172800000).toISOString().split('T')[0], title: 'ECB Monetary Policy Meeting', time: '12:15', impact: 'High' },
+                        { date: new Date(today.getTime() + 259200000).toISOString().split('T')[0], title: 'US Non-Farm Payrolls', time: '08:30', impact: 'High' },
+                        { date: new Date(today.getTime() + 432000000).toISOString().split('T')[0], title: 'US GDP Quarterly Data', time: '08:30', impact: 'Medium' }
                     ];
-                    
-                    const thirtyDaysFromNow = new Date(today.getTime() + (30 * 24 * 60 * 60 * 1000));
-                    
-                    const filteredEvents = events
-                        .filter(event => {
-                            const eventDate = new Date(event.date);
-                            return eventDate >= today && eventDate <= thirtyDaysFromNow;
-                        })
-                        .sort((a, b) => new Date(a.date) - new Date(b.date));
-                    
+                    const thirtyDaysFromNow = new Date(today.getTime() + 2592000000);
+                    const filteredEvents = events.filter(e => {
+                        const eventDate = new Date(e.date);
+                        return eventDate >= today && eventDate <= thirtyDaysFromNow;
+                    }).sort((a, b) => new Date(a.date) - new Date(b.date));
                     resolve(filteredEvents);
                 }, 500);
             });
         }
-
         function displayNewsEvents(events) {
             const container = document.getElementById('news-content');
-            
             if (events.length === 0) {
                 container.innerHTML = '<div class="no-events">No major events scheduled for the next 30 days</div>';
                 return;
             }
-
             const eventsHtml = events.map(event => {
                 const eventDate = new Date(event.date);
                 const today = new Date();
                 const tomorrow = new Date(today);
                 tomorrow.setDate(tomorrow.getDate() + 1);
-                
                 let dateDisplay;
                 if (eventDate.toDateString() === today.toDateString()) {
                     dateDisplay = 'Today';
                 } else if (eventDate.toDateString() === tomorrow.toDateString()) {
                     dateDisplay = 'Tomorrow';
                 } else {
-                    dateDisplay = eventDate.toLocaleDateString('en-US', { 
-                        weekday: 'short', 
-                        month: 'short', 
-                        day: 'numeric' 
-                    });
+                    dateDisplay = eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
                 }
-
                 const impactClass = event.impact.toLowerCase() === 'high' ? 'high-impact' : 'medium-impact';
-
                 return `
                     <div class="news-item ${impactClass}" role="article">
                         <div class="news-date">${dateDisplay} at ${event.time} UTC</div>
@@ -1355,102 +1062,58 @@ indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees
                     </div>
                 `;
             }).join('');
-
             container.innerHTML = eventsHtml;
         }
-
-        // Forex prices functionality
         async function loadForexPrices() {
             const pricesContainer = document.getElementById('prices-content');
             if (!pricesContainer) return;
-            
             try {
-                pricesContainer.innerHTML = `
-                    <div class="loading">
-                        <span class="loading-spinner"></span>
-                        Loading live forex prices...
-                    </div>
-                `;
-                
+                pricesContainer.innerHTML = `<div class="loading"><span class="loading-spinner"></span> Loading live forex prices...</div>`;
                 const priceData = await fetchFromPrimaryAPI();
-                
                 if (priceData && priceData.length > 0) {
                     displayForexPrices(priceData);
                 } else {
                     showPricesUnavailable();
                 }
-                
             } catch (error) {
                 showPricesUnavailable();
             }
         }
-
         async function fetchFromPrimaryAPI() {
             const API_KEY = '56cde61bbe743334989a99ab';
-            
             try {
                 const response = await fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`);
-                
-                if (!response.ok) {
-                    throw new Error(`API response not ok: ${response.status}`);
-                }
-                
+                if (!response.ok) throw new Error(`API response not ok: ${response.status}`);
                 const data = await response.json();
-                
-                if (data.result !== 'success') {
-                    throw new Error('API returned error result');
-                }
-                
+                if (data.result !== 'success') throw new Error('API returned error result');
                 const rates = data.conversion_rates;
                 const results = [];
-                
                 if (rates.EUR) results.push({ display: 'EURUSD', price: 1 / rates.EUR });
                 if (rates.GBP) results.push({ display: 'GBPUSD', price: 1 / rates.GBP });
                 if (rates.AUD) results.push({ display: 'AUDUSD', price: 1 / rates.AUD });
                 if (rates.CAD) results.push({ display: 'USDCAD', price: rates.CAD });
                 if (rates.JPY) results.push({ display: 'USDJPY', price: rates.JPY });
-                
                 return results;
-                
             } catch (error) {
                 console.warn('Primary forex API failed:', error);
                 return null;
             }
         }
-
         function showPricesUnavailable() {
             const container = document.getElementById('prices-content');
             if (container) {
-                container.innerHTML = `
-                    <div class="error-state">
-                        <div style="margin-bottom: 0.5rem;">Live prices unavailable</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted);">
-                            API connection failed. Please try refreshing the page.
-                        </div>
-                    </div>
-                `;
+                container.innerHTML = `<div class="error-state"><div style="margin-bottom: 0.5rem;">Live prices unavailable</div><div style="font-size: 0.8rem; color: var(--text-muted);">API connection failed. Please try refreshing the page.</div></div>`;
             }
         }
-
         function displayForexPrices(prices) {
             const container = document.getElementById('prices-content');
             if (!container || !prices || prices.length === 0) {
-                if (container) {
-                    container.innerHTML = '<div class="error-state">No price data available</div>';
-                }
+                if (container) container.innerHTML = '<div class="error-state">No price data available</div>';
                 return;
             }
-
             let pricesHtml = '';
-            
             prices.forEach(item => {
-                let formattedPrice;
-                if (item.display === 'USDJPY') {
-                    formattedPrice = item.price.toFixed(2);
-                } else {
-                    formattedPrice = item.price.toFixed(4);
-                }
-                
+                let formattedPrice = item.display === 'USDJPY' ? item.price.toFixed(2) : item.price.toFixed(4);
                 pricesHtml += `
                     <div class="price-item">
                         <div class="pair-name">${item.display}</div>
@@ -1461,21 +1124,15 @@ indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees
                     </div>
                 `;
             });
-            
             container.innerHTML = pricesHtml;
         }
-
-        // Initialize everything on page load
         document.addEventListener('DOMContentLoaded', function() {
             initializeTheme();
             loadNewsEvents();
             loadForexPrices();
-            
-            setInterval(loadNewsEvents, 4 * 60 * 60 * 1000);
-            setInterval(loadForexPrices, 60 * 60 * 1000);
+            setInterval(loadNewsEvents, 14400000);
+            setInterval(loadForexPrices, 3600000);
         });
-
-        // Handle system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
             if (!localStorage.getItem(THEME_KEY)) {
                 const theme = e.matches ? 'dark' : 'light';
@@ -1483,8 +1140,6 @@ indicator("Live Economic Calendar by toodegrees", shorttitle="News° [toodegrees
                 updateThemeIcon(theme);
             }
         });
-
-        // Keyboard accessibility
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 if (e.target.classList.contains('section-header')) {
